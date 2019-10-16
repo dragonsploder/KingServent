@@ -23,6 +23,7 @@ void gameLoop(){
 }
 
 int main(){
+    getInput();
     init();
     gameLoop();
 }

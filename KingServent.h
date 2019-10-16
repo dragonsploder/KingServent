@@ -90,6 +90,7 @@ extern std::string materials[]; // String array of materials
 extern std::string tileType[]; // String array of tile types (e.g. door, wall, ect)
 extern std::string directions[]; // String array of directions n,e,s,w
 extern std::string doorMessages[];
+extern std::string commands[6][10];
 // END data
 
 // room 
@@ -99,6 +100,10 @@ void updateRoomFlags(); // Update Room Flages for the room the player is current
 // player
 std::string genPlayerEnterRoomMessage(); // Generat the message the player gets upon entering a room
 // END player
+
+// parser
+std::string getInput();
+// END parser
 
 
 #endif
