@@ -40,6 +40,15 @@ string doorMessages[] = {
     "a doorway to the west.",
     "and "
 };
+
+// Strings that had no other home
+string miscResponses[] = {
+    "I didn't understand that",
+    ">",
+    "Developer Error",
+    "You can't do that right now"
+};
+
 /**
  * Input commands are all connected to a number:
  * 0: Reserved
@@ -49,12 +58,9 @@ string doorMessages[] = {
  * 4: "South" - Go south
  * 5: "West" - Go west
 **/
-
-
-
 string commands[6][10] = {
     {"Reserved"},
-    {"look", "lk"},
+    {"look",  "l", "lk"},
     {"north", "n", "nth"},
     {"east", "e", "est"},
     {"south", "s", "sth"},

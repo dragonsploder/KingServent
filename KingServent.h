@@ -26,6 +26,8 @@ struct Item { // An Item has a:
 struct People { // People have a:
     std::string name;
     std::string discription;
+    int X; // Current location X
+    int Y; // Current location X
     int socialClass;
     int age;
 };
@@ -46,14 +48,6 @@ struct Tile { // Every tile of the castle has a:
     int Y; // This tile's y on the catle
 };
 
-struct Player { // A player has:
-    std::string name;
-    std::string discription;
-    Tile currentLocation;
-    int X; // Current location X
-    int Y; // Current location X
-};
-
 struct RoomLocationFlags { // Information about a room
     std::vector<People> peopleInRoom; // Who is in this room
     std::vector<Item> itemsInRoom; // What items are in this room
@@ -68,29 +62,32 @@ struct RoomLocationFlags { // Information about a room
 };
 
 // main
-extern Player player; // "The" plyer
+extern People player; // "The" plyer
 extern RoomLocationFlags currentRoomFlags; // Room flags for the room the player is in
+extern int seed; // Used to set the seed
 // END main
 
 // castleGen
 extern std::vector<std::vector<int> > basicMapMatrix; // Map used by BSP system for generating castle map
 extern std::vector< std::vector<Tile> > castleMap; // Actual castle map, full of Tiles
 void genCastle(); // Function which generats a map and filles castleMap
+void printMap(std::vector< std::vector<Tile> > &castleMap); // Prints out the castle
 // END castleGen
 
 // misc
 void copyMatrix(std::vector<std::vector<int> > &basicMatrix, std::vector< std::vector<Tile> > &mapMatrix); // Copy a matrix of ints to a matrix of tiles
 void setTileLocations(std::vector< std::vector<Tile> > &mapMatrix); // Connect each Tile with X and Y values
 void resetFloodFlag(); // Set all of the tiles floodFlag to false
-void printString(std::string message); // Print a string to the screen
+void printString(std::string message, bool endline = true); // Print a string to the screen
 // END misc
 
 // data
 extern std::string materials[]; // String array of materials
 extern std::string tileType[]; // String array of tile types (e.g. door, wall, ect)
 extern std::string directions[]; // String array of directions n,e,s,w
-extern std::string doorMessages[];
-extern std::string commands[6][10];
+extern std::string doorMessages[]; // String array of messages used to discribe doorways
+extern std::string miscResponses[]; // Strings that had no other home
+extern std::string commands[6][10]; // String array of possible commands
 // END data
 
 // room 
@@ -99,10 +96,12 @@ void updateRoomFlags(); // Update Room Flages for the room the player is current
 
 // player
 std::string genPlayerEnterRoomMessage(); // Generat the message the player gets upon entering a room
+void executeCommand(int command); // Execute a command
 // END player
 
 // parser
-std::string getInput();
+int getInput(); // Get input from the player
+bool isValidInput(int input); // Cheak if player can perform an command
 // END parser
 
 

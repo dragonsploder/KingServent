@@ -173,11 +173,16 @@ void placePlayer(vector< vector<Tile> > &castleMap){
 }
 
 void genCastle(){
-    srand(time(NULL)); // Set rand seed
+    if (seed == 0){
+        srand(time(NULL)); // Set rand seed
+        printf("Seed:%i\n", time(NULL)); // Testing 
+    } else {
+        srand(seed); // Set rand seed
+        printf("Seed:%i\n", seed); // Testing   
+    }
     binarySpacePartitioning(basicMapMatrix, ROOM_ITERATIONS, true, 2); // Generate rooms
     copyMatrix(basicMapMatrix, castleMap); // Copy basicMapMatrix onto castleMap
     vector<vector<int> >().swap(basicMapMatrix); // Hack to release basicMapMatrix
     placePlayer(castleMap);
-    printMap(castleMap); 
     setTileLocations(castleMap); 
 }

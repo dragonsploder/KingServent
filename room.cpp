@@ -72,6 +72,12 @@ void floodFill(int y, int x){
 }
 
 void updateRoomFlags(){
+    // Make sure no data sneaks in
+    currentRoomFlags.peopleInRoom.clear();
+    currentRoomFlags.furnitureInRoom.clear();
+    currentRoomFlags.itemsInRoom.clear();
+    currentRoomFlags.doors.clear();
+
     lowestX = CASTLE_WIDTH; // Highest possible value of lowestX + 1
     highestX = 0; // Lowest possible value of highestX - 1
     lowestY = CASTLE_HIGHT; // Highest possible value of lowestY + 1

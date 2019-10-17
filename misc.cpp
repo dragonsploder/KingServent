@@ -36,6 +36,10 @@ void resetFloodFlag(){
 }
 
 // Print a string to the screen
-void printString(string message){
-    cout << message << endl;
+void printString(string message, bool endline){
+    if (endline){
+        cout << message << endl;
+    } else {
+        cout << message;
+    }
 }
