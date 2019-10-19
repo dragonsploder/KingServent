@@ -4,7 +4,8 @@ SRCS=   main.cpp \
 		misc.cpp \
 		castleGen.cpp \
 		data.cpp \
-		parser.cpp
+		parser.cpp \
+		messages.cpp
 
 KingServent:
 	g++ $(SRCS) -o king

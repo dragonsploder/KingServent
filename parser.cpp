@@ -11,8 +11,11 @@ int getInput(){
     string input; //
     int command = 0;
     do {
-        printString(miscResponses[1], false); // ">"
-        cin >> input;
+        do {
+            printString(miscResponses[1], false); // ">"
+            getline(cin, input); // Get input
+        } while (input.empty()); // Do it agian if the user just hits enter
+
         for (int i = 0; i < input.size(); i++){ // For every letter in input
             input[i] = tolower(input[i]); // Make lower case
         }

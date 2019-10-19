@@ -8,6 +8,7 @@ using namespace std;
 
 People player;
 RoomLocationFlags currentRoomFlags;
+MessageFlags messageFlags;
 int seed = 0;
 bool needPrintMap = false;
 
@@ -15,7 +16,8 @@ bool needPrintMap = false;
 void init(){
     genCastle(); //Generate the Castle with a BSP system
     updateRoomFlags();  // Floodfill the room the player is in and see whats in it
-    printString(genPlayerEnterRoomMessage()); // Print out a message describing room
+    messageFlags.printNewRoomMessage = true; // Tell printMessages() we're in a new room
+    printMessages(); // What's in our first room
 }
 
 //The main game loop
@@ -25,11 +27,12 @@ void gameLoop(){
         if (needPrintMap){
             printMap(castleMap);
         }
-        updateRoomFlags();  // Floodfill the room the player is in and see whats in it
         do {
             currentCommand = getInput(); // Get a command
         } while(!isValidInput(currentCommand)); // Test is command can be exicuted
         executeCommand(currentCommand); // Execute the command
+        updateRoomFlags();  // Floodfill the room the player is in and see whats in it
+        printMessages(); // They player did something, tell them what happend
     }
 }
 

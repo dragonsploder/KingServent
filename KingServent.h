@@ -48,6 +48,11 @@ struct Tile { // Every tile of the castle has a:
     int Y; // This tile's y on the catle
 };
 
+struct MessageFlags { // flags used to tell what messages need to be printed
+    bool printNewRoomMessage = false; // Have we entered a new room
+    bool printCurrentRoomDescription = false; // Do we want to see our surroundings
+};
+
 struct RoomLocationFlags { // Information about a room
     std::vector<People> peopleInRoom; // Who is in this room
     std::vector<Item> itemsInRoom; // What items are in this room
@@ -64,6 +69,7 @@ struct RoomLocationFlags { // Information about a room
 // main
 extern People player; // "The" plyer
 extern RoomLocationFlags currentRoomFlags; // Room flags for the room the player is in
+extern MessageFlags messageFlags; // What messages to print
 extern int seed; // Used to set the seed
 // END main
 
@@ -95,9 +101,14 @@ void updateRoomFlags(); // Update Room Flages for the room the player is current
 // END room
 
 // player
-std::string genPlayerEnterRoomMessage(); // Generat the message the player gets upon entering a room
 void executeCommand(int command); // Execute a command
 // END player
+
+// messages
+/*std::string genPlayerEnterRoomMessage(); // Generat the message the player gets upon entering a room
+std::string genCurrentRoomDescription(); // What dose the current room look like*/
+void printMessages(); // They player did something, tell them what happend
+// END messages
 
 // parser
 int getInput(); // Get input from the player

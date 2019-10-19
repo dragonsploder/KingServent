@@ -78,12 +78,15 @@ void updateRoomFlags(){
     currentRoomFlags.itemsInRoom.clear();
     currentRoomFlags.doors.clear();
 
-    lowestX = CASTLE_WIDTH; // Highest possible value of lowestX + 1
-    highestX = 0; // Lowest possible value of highestX - 1
-    lowestY = CASTLE_HIGHT; // Highest possible value of lowestY + 1
-    highestY = 0; // Lowest possible value of highestX - 1
+    // Set these values to the player's location so they start in the room
+    lowestX = player.X; 
+    highestX = player.X; 
+    lowestY = player.Y;
+    highestY = player.Y; 
+
     floodFill(player.Y, player.X); // FloodFill from player (i.e. floodFill the current room)
     resetFloodFlag(); // Reset all floodFill flags so room can be flooded later
+
     currentRoomFlags.hight = highestY - lowestY + 1; // Find hight of room
     currentRoomFlags.width = highestX - lowestX + 1; // Find width of room
 }
