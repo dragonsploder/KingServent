@@ -93,7 +93,7 @@ extern std::string tileType[]; // String array of tile types (e.g. door, wall, e
 extern std::string directions[]; // String array of directions n,e,s,w
 extern std::string doorMessages[]; // String array of messages used to discribe doorways
 extern std::string miscResponses[]; // Strings that had no other home
-extern std::string commands[6][10]; // String array of possible commands
+extern std::string commands[9][10]; // String array of possible commands
 // END data
 
 // room 

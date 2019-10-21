@@ -19,6 +19,9 @@ void movePlayer(int Y, int X){
  * 3: "East" - Go east
  * 4: "South" - Go south
  * 5: "West" - Go west
+ * 6: "Quit" - Quit the game
+ * 7: "Yes"
+ * 8: "No"
 **/
 void executeCommand(int command){
     if (command == 1){
@@ -46,6 +49,12 @@ void executeCommand(int command){
                 break;
             }
         }
+    } else if (command == 6){
+        printString(miscResponses[4]);
+        if (getInput() == 7){
+            exit(0);
+        }
+        printString(miscResponses[5]);
     } else {
         printString(miscResponses[2]);
     }

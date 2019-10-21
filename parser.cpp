@@ -42,11 +42,15 @@ int getInput(){
  * 3: "East" - Go east
  * 4: "South" - Go south
  * 5: "West" - Go west
+ * 6: "Quit" - Quit the game
+ * 7: "Yes"
+ * 8: "No"
 **/
 
 bool isValidInput(int input){
     switch (input){
         case 1:
+        case 6:
             return true;
         case 2:
         case 3:

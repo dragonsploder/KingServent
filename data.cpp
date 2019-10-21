@@ -46,7 +46,9 @@ string miscResponses[] = {
     "I didn't understand that",
     ">",
     "Developer Error",
-    "You can't do that right now"
+    "You can't do that right now",
+    "Are you sure you want to exit?",
+    "Ok"
 };
 
 /**
@@ -57,12 +59,18 @@ string miscResponses[] = {
  * 3: "East" - Go east
  * 4: "South" - Go south
  * 5: "West" - Go west
+ * 6: "Quit" - Quit the game
+ * 7: "Yes"
+ * 8: "No"
 **/
-string commands[6][10] = {
+string commands[9][10] = {
     {"Reserved"},
     {"look",  "l", "lk"},
     {"north", "n", "nth"},
     {"east", "e", "est"},
     {"south", "s", "sth"},
     {"west", "w", "wst"},
+    {"quit", "exit"},
+    {"yes"},
+    {"no"}
 };
