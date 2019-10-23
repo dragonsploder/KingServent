@@ -84,7 +84,7 @@ string commands[9][10] = {
 
 // Differnt room types and their corresponding numbers
 // 0 is the defalt
-roomType roomTypes[] = {
+roomType roomTypes[12] = {
     {"Unused", "", false}, // 0
     {"King's bedroom", "An almost sacred room only to be tread in the most necessary of times.", true}, // 1
     {"kitchen", "A room full of wondrous smells where food fit for kings (of course) is made.", true}, // 2

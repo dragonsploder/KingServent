@@ -164,8 +164,16 @@ void binarySpacePartitioning(vector<vector<int> > &mapMatrix, int iterations, bo
 }
 
 void designateRooms(){
-    vector<int> necessaryRoomOrder={1,2,3,4,5}; // Create a vector of neccisary rooms that will be shuffled. This new array will determin the order rooms are added
-    vector<int> unnecessaryRoomOrder={6,7,8,9,10,11,11}; // Create a vector of unneccisary rooms that will be shuffled.
+    vector<int> necessaryRoomOrder; // Create a vector of neccisary rooms that will be shuffled. This new array will determin the order rooms are added
+    vector<int> unnecessaryRoomOrder; // Create a vector of unneccisary rooms that will be shuffled.
+    for (int i = 0; i < 12; i++){
+        if (roomTypes[i].mandatory){
+            necessaryRoomOrder.push_back(i);
+        } else {
+            unnecessaryRoomOrder.push_back(i);
+        }
+    }
+
     random_shuffle(begin(necessaryRoomOrder), end(necessaryRoomOrder)); 
     random_shuffle(begin(unnecessaryRoomOrder), end(unnecessaryRoomOrder));
 
