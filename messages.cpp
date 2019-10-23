@@ -8,9 +8,17 @@ using namespace std;
 string genPlayerEnterRoomMessage(){
     string message; // string for compleat message
 
+    if (currentRoomFlags.roomType == 11) { // "You enter ..."
+        message.append(roomDescriptionMessages[2]); // It's a hall so use "a"
+    } else {
+        message.append(roomDescriptionMessages[1]); // Everything else use "the"
+    }
+    message.append(roomTypes[currentRoomFlags.roomType].name);
+    message.append(roomDescriptionMessages[0]); // End the message
+
     // Room Size
-    char tempMessage[25]; // Buffer for room size message
-    sprintf(tempMessage, "The room is %ix%i. ", currentRoomFlags.width, currentRoomFlags.hight); // fill tempMessage with "The room is [room width]x[room hight]"
+    char tempMessage[50]; // Buffer for room size message
+    sprintf(tempMessage, roomDescriptionMessages[3], currentRoomFlags.width, currentRoomFlags.hight); // fill tempMessage with "The room is [room width]x[room hight]"
     message.append(tempMessage); // Add room size message to main message
 
     // Door Messages
@@ -31,7 +39,7 @@ string genPlayerEnterRoomMessage(){
 }
 
 string genCurrentRoomDescription(){
-    return "A room";
+    return roomTypes[currentRoomFlags.roomType].discription;
 }
 
 void printMessages(){

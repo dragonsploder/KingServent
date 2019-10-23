@@ -25,7 +25,7 @@ void gameLoop(){
     int currentCommand = 0;
     while (true){
         if (needPrintMap){
-            printMap(castleMap);
+            printMap();
         }
         do {
             currentCommand = getInput(); // Get a command

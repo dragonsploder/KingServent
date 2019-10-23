@@ -35,6 +35,10 @@ void addRoomData(Tile tile){
     if (tileType[castleMap[tile.Y][tile.X - 1].type] == "Door"){
         currentRoomFlags.doors.push_back({tile.Y, tile.X - 1, 4}); // West
     }
+
+    if (castleMap[tile.Y][tile.X].roomType != 0){
+        currentRoomFlags.roomType = castleMap[tile.Y][tile.X].roomType;
+    }
 }
 
 // Calls addRoomData for each tile in the room, starting at (y, x)

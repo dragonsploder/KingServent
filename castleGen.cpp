@@ -4,6 +4,7 @@
 #include <time.h>
 #include <tgmath.h>
 #include <cstring>
+#include <algorithm>
 
 #include "KingServent.h"
 
@@ -12,14 +13,20 @@ using namespace std;
 vector< vector<Tile> > castleMap(CASTLE_HIGHT, vector<Tile>(CASTLE_WIDTH)); // Actual castle map, full of Tiles
 vector<vector<int> > basicMapMatrix(CASTLE_HIGHT, vector<int>(CASTLE_WIDTH,0)); // Map used by BSP system for generating castle map
 
+vector<vector<int> > roomCoordinates; // List of rooms (used in differnt functions so global)
+
 // Function used to print castleMap to screen
-void printMap(vector< vector<Tile> > &castleMap){
+void printMap(){
     for (int h = 0; h < castleMap.size(); h++){ // For "h" in castleMap
         for (int w = 0; w < castleMap[0].size(); w++){ // For "w" in castleMap
             if (castleMap[h][w].isCurrentPlayerLocation){ // If player location
                 printf("@");
             } else if (tileType[castleMap[h][w].type] == "Floor"){ // If Floor
+            if (castleMap[h][w].roomType == 0){
                 printf(".");
+            } else {
+                printf("%i", castleMap[h][w].roomType);
+            }
             } else if (tileType[castleMap[h][w].type] == "Wall"){ // If Wall
                 printf("#");
             } else if (tileType[castleMap[h][w].type] == "Door"){ // If Door
@@ -51,7 +58,6 @@ void binarySpacePartitioning(vector<vector<int> > &mapMatrix, int iterations, bo
     int width = mapMatrix[0].size() - 1;
     // This function works by keeping track of the coordinates of a room (four to be exact) and were doors should be
                                                 // (x1,y1,x2,y2)
-    vector<vector<int> > roomCoordinates; // List of rooms
     vector<vector<int> > newRoomCoordinates; // List which gets filled with the splits of roomCoordinates
     vector<vector<int> > connectionsYaxis; // Horizontal doors
                                            // (y, minX, maxX)
@@ -157,9 +163,25 @@ void binarySpacePartitioning(vector<vector<int> > &mapMatrix, int iterations, bo
     }    
 }
 
+void designateRooms(){
+    vector<int> necessaryRoomOrder={1,2,3,4,5}; // Create a vector of neccisary rooms that will be shuffled. This new array will determin the order rooms are added
+    vector<int> unnecessaryRoomOrder={6,7,8,9,10,11,11}; // Create a vector of unneccisary rooms that will be shuffled.
+    random_shuffle(begin(necessaryRoomOrder), end(necessaryRoomOrder)); 
+    random_shuffle(begin(unnecessaryRoomOrder), end(unnecessaryRoomOrder));
+
+    vector<int> roomOrder; // The order in which rooms will be inserted, the last 4 are not
+    roomOrder.insert(roomOrder.end(), necessaryRoomOrder.begin(), necessaryRoomOrder.end()); 
+    roomOrder.insert(roomOrder.end(), unnecessaryRoomOrder.begin(), unnecessaryRoomOrder.end());
+
+    for (int i = 0; i < roomCoordinates.size(); i++){ // Something weird happening here, please help
+        castleMap[roomCoordinates[i][1] + 1][roomCoordinates[i][0] + 1].roomType = roomOrder[i - 1]; // Give the top left corner the room type
+    }
+}
+
+
 // Put the player on the map
-void placePlayer(vector< vector<Tile> > &castleMap){
-    bool flag = true;
+void placePlayer(){
+    /*bool flag = true;
     do {
         int tempX = rand() % (CASTLE_WIDTH - 1);
         int tempY = rand() % (CASTLE_HIGHT - 1);
@@ -169,7 +191,16 @@ void placePlayer(vector< vector<Tile> > &castleMap){
             castleMap[tempY][tempX].isCurrentPlayerLocation = true; // Set this tile's isCurrentPlayerLocation 
             flag = false; // Stop trying random locations
         }
-    } while(flag); // While we haven't found a good location
+    } while(flag); // While we haven't found a good location*/
+    for(int y = 0; y < CASTLE_HIGHT; y++){
+        for(int x = 0; x < CASTLE_WIDTH; x++){
+            if (castleMap[y][x].roomType == 5){ // The servent's corrder
+                player.X = x; // Set player X
+                player.Y = y; // Set player Y
+                castleMap[y][x].isCurrentPlayerLocation = true; // Set this tile's isCurrentPlayerLocation 
+            }
+        }
+    }
 }
 
 void genCastle(){
@@ -183,6 +214,7 @@ void genCastle(){
     binarySpacePartitioning(basicMapMatrix, ROOM_ITERATIONS, true, 2); // Generate rooms
     copyMatrix(basicMapMatrix, castleMap); // Copy basicMapMatrix onto castleMap
     vector<vector<int> >().swap(basicMapMatrix); // Hack to release basicMapMatrix
-    placePlayer(castleMap);
+    designateRooms(); // Turn ordinary rooms into cool rooms
+    placePlayer();
     setTileLocations(castleMap); 
 }
