@@ -8,15 +8,19 @@ using namespace std;
 
 People player;
 RoomLocationFlags currentRoomFlags;
-MessageFlags messageFlags;
+GameFlags gameFlags;
 int seed = 0;
 bool needPrintMap = false;
+
+Furniture emptyFuniture = {"Empty"};
+Item emptyItem = {"Empty"};
+People emptyPerson = {"Empty"};
 
 //Initilize starting Varibles
 void init(){
     genCastle(); //Generate the Castle with a BSP system
     updateRoomFlags();  // Floodfill the room the player is in and see whats in it
-    messageFlags.printNewRoomMessage = true; // Tell printMessages() we're in a new room
+    gameFlags.printNewRoomMessage = true; // Tell printMessages() we're in a new room
     printMessages(); // What's in our first room
 }
 

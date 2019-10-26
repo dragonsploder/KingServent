@@ -13,12 +13,16 @@ int highestY;
 // Updates RoomData based on a Tile
 void addRoomData(Tile tile){
     // Any people currently on the tile
-    currentRoomFlags.peopleInRoom.push_back(tile.personInTile);
+    if (tile.personInTile.name != "Empty"){
+        currentRoomFlags.peopleInRoom.push_back(tile.personInTile);
+    }
     // Any furniture currently on the tile
-    currentRoomFlags.furnitureInRoom.push_back(tile.funitureInTile);
-    // Any items currently on the tile (there can be more then one)
-    for(int i = 0; i < tile.itemsInTile.size(); i++){
-        currentRoomFlags.itemsInRoom.push_back(tile.itemsInTile[i]);
+    if (tile.funitureInTile.name != "Empty"){
+        currentRoomFlags.furnitureInRoom.push_back(tile.funitureInTile);
+    }
+    // Any items currently on the tile
+    if (tile.itemInTile.name != "Empty"){
+        currentRoomFlags.itemsInRoom.push_back(tile.itemInTile);
     }
 
     // Checks the four tiles next to this tile for a door

@@ -42,13 +42,30 @@ string genCurrentRoomDescription(){
     return roomTypes[currentRoomFlags.roomType].discription;
 }
 
+string genCurrentRoomItemList(){
+    string message;
+    int i;
+    for (i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
+        message.append(currentRoomFlags.itemsInRoom[i].name);
+        message.append("\n");
+    }
+    if (i == 0){
+        message = "There are no items in this room.";
+    }
+    return message;
+}
+
 void printMessages(){
-    if (messageFlags.printNewRoomMessage){
+    if (gameFlags.printNewRoomMessage){
         printString(genPlayerEnterRoomMessage()); // Print out a message describing room
-        messageFlags.printNewRoomMessage = false;
-    } 
-    if (messageFlags.printCurrentRoomDescription){
+        gameFlags.printNewRoomMessage = false;
+    }
+    if (gameFlags.printCurrentRoomDescription){
         printString(genCurrentRoomDescription());
-        messageFlags.printCurrentRoomDescription = false;
+        gameFlags.printCurrentRoomDescription = false;
+    }
+    if (gameFlags.printCurrentRoomItems){
+        printString(genCurrentRoomItemList());
+        gameFlags.printCurrentRoomItems = false;
     }
 }

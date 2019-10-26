@@ -12,16 +12,28 @@
 struct Furniture { // Furniture has a:
     std::string name;
     std::string discription;
-    int material;
+    bool container;
+    int typeOfContainer;
+};
+
+extern Furniture emptyFuniture;
+
+struct ElementaryItem { // Unbreackable base item 
+    std::string name;
+    std::string discription;
+    int size;
+    bool liquid;
+};
+
+struct Item { // An item made fromm ElementaryItem
+    std::string name;
+    std::string discription;
+    std::vector<ElementaryItem> parts;
+    int integrity;
     int size;
 };
 
-struct Item { // An Item has a:
-    std::string name;
-    std::string discription;
-    int material;
-    int size;
-};
+extern Item emptyItem;
 
 struct People { // People have a:
     std::string name;
@@ -32,12 +44,14 @@ struct People { // People have a:
     int age;
 };
 
+extern People emptyPerson;
+
 struct Tile { // Every tile of the castle has a:
     std::string name;
     std::string discription;
-    Furniture funitureInTile; // A tile can only have one piece of furniture
-    People personInTile; // A tile can only have one person
-    std::vector<Item> itemsInTile; // A tile can have multipe items
+    Furniture funitureInTile = emptyFuniture; // A tile can only have one piece of furniture
+    People personInTile = emptyPerson; // A tile can only have one person
+    Item itemInTile = emptyItem; // A tile can have one item
 
     int type; // Floor, door, wall, ect
     int roomType = 0; // Type of room
@@ -49,9 +63,11 @@ struct Tile { // Every tile of the castle has a:
     int Y; // This tile's y on the catle
 };
 
-struct MessageFlags { // flags used to tell what messages need to be printed
+struct GameFlags { // flags used to tell the game what to do
+    std::string input[2]; 
     bool printNewRoomMessage = false; // Have we entered a new room
     bool printCurrentRoomDescription = false; // Do we want to see our surroundings
+    bool printCurrentRoomItems = false; // What items are in this room
 };
 
 struct RoomLocationFlags { // Information about a room
@@ -68,17 +84,25 @@ struct RoomLocationFlags { // Information about a room
     int roomType = 0; // What kind of room is this
 };
 
-struct roomType {
+struct RoomType {
     std::string name;
     std::string discription;
 
     bool mandatory;
 };
 
+struct RoomFilling { // What items go in what rooms
+    Item manditoryItem;
+    std::vector<Item> possibleItems;
+
+    Furniture manditoryFurniture;
+    std::vector<Furniture> possibleFurniture;
+};
+
 // main
 extern People player; // "The" plyer
 extern RoomLocationFlags currentRoomFlags; // Room flags for the room the player is in
-extern MessageFlags messageFlags; // What messages to print
+extern GameFlags gameFlags; // What messages to print
 extern int seed; // Used to set the seed
 // END main
 
@@ -97,14 +121,14 @@ void printString(std::string message, bool endline = true); // Print a string to
 // END misc
 
 // data
-extern std::string materials[]; // String array of materials
 extern std::string tileType[]; // String array of tile types (e.g. door, wall, ect)
 extern std::string directions[]; // String array of directions n,e,s,w
 extern char roomDescriptionMessages[][50];
 extern std::string doorMessages[]; // String array of messages used to discribe doorways
 extern std::string miscResponses[]; // Strings that had no other home
 extern std::string commands[9][10]; // String array of possible commands
-extern roomType roomTypes[]; // Differnt room types and their corresponding numbers
+extern RoomType roomTypes[12]; // Differnt room types and their corresponding numbers
+extern const RoomFilling roomFilling[12]; // What to put in those rooms
 // END data
 
 // room 

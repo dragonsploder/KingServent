@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <cctype>
+#include <sstream>
 
 #include "KingServent.h"
 
@@ -8,29 +9,42 @@ using namespace std;
 
 // Get user input, return corresponding number
 int getInput(){
-    string input; //
+    string rawinput; //
+    string input[2] = {
+        "None",
+        "None"
+    };
     int command = 0;
     do {
         do {
             printString(miscResponses[1], false); // ">"
-            getline(cin, input); // Get input
-        } while (input.empty()); // Do it agian if the user just hits enter
+            getline(cin, rawinput); // Get input
+        } while (rawinput.empty()); // Do it agian if the user just hits enter
 
-        for (int i = 0; i < input.size(); i++){ // For every letter in input
-            input[i] = tolower(input[i]); // Make lower case
+        for (int i = 0; i < rawinput.size(); i++){ // For every letter in input
+            rawinput[i] = tolower(rawinput[i]); // Make lower case
         }
+
+        stringstream ssin(rawinput);
+        for(int i = 0; ssin.good() && i < 4; ++i){
+            ssin >> input[i];
+        }
+
         for (int i = 0; i < (sizeof(commands)/sizeof(commands[0])); i++){ // For every possible command
             for (int j = 0; j < (sizeof(commands[i])/sizeof(commands[i][0])); j++){ // For every command permutation
-                if (input == commands[i][j]){ // If input is equal to command
+                if (input[0] == commands[i][j]){ // If input is equal to command
                     command = i; // Make command equal to location in commands array
                     break;
                 }
             }
         }
+
         if (command == 0){
             printString(miscResponses[0]);
         }
     } while (command == 0); // While a valid command use not been inputed
+    gameFlags.input[0] = input[0];
+    gameFlags.input[1] = input[1];
     return command;
 }
 
@@ -50,6 +64,10 @@ int getInput(){
 bool isValidInput(int input){
     switch (input){
         case 1:
+            if (gameFlags.input[1] == "None" || gameFlags.input[1] == "items" || gameFlags.input[1] == "furniture"){
+                return true;
+            }
+            break;
         case 6:
             return true;
         case 2:

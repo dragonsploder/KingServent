@@ -25,7 +25,11 @@ void movePlayer(int Y, int X){
 **/
 void executeCommand(int command){
     if (command == 1){
-        messageFlags.printCurrentRoomDescription = true;
+        if (gameFlags.input[1] == "None"){
+            gameFlags.printCurrentRoomDescription = true;
+        } else if (gameFlags.input[1] == "items"){
+            gameFlags.printCurrentRoomItems = true;
+        }
     } else if (1 < command && command < 6){
         for (int i = 0; i < currentRoomFlags.doors.size(); i++){
             if (currentRoomFlags.doors[i][2] == command - 1){
@@ -45,7 +49,7 @@ void executeCommand(int command){
                     default:
                         printString(miscResponses[2]);
                 }
-                messageFlags.printNewRoomMessage = true; // We moved into a new room
+                gameFlags.printNewRoomMessage = true; // We moved into a new room
                 break;
             }
         }

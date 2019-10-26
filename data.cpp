@@ -4,13 +4,6 @@
 
 using namespace std;
 
-// Materials used in defining properties of items and furniture
-string materials[] = {
-    "wood",
-    "metal",
-    "copper"
-};
-
 // Tile type
 string tileType[] = {
     "Floor",
@@ -82,9 +75,51 @@ string commands[9][10] = {
     {"no"}
 };
 
+// Unbreackable base item 
+// Name: string
+// Description: string
+// Liquid: bool
+// Size: int
+ElementaryItem elementaryItems[2] = {
+    {"Egg Shell", "A thin lay of protection for a growing animal.", 1, false},
+    {"Egg Yolk", "A slimy substance full of nutrieantes, or so I'm told.", 1, true}
+};
+ 
+// An item made fromm ElementaryItem
+// Name: string
+// Description: string
+// Vector of elementaryItems
+// integrity: int
+// Size: int
+Item Items[1] = {                                            
+    {"Chicken Egg", "Layed by a chicken, this fragile, oval object will produce a chiken if left alon long enough.", {elementaryItems[0], elementaryItems[1]}, 1, 1}
+};
+
+
+// manditoryItem
+// possibleItems
+// manditoryFurniture
+// possibleFurniture
+const RoomFilling roomFilling[12] = {
+    {}, // Unused
+    {}, // King's bedroom
+    {Items[0]}, // kitchen
+    {}, // storeroom
+    {}, // dinning room
+    {}, // servants corridor
+    {}, // game room
+    {}, // music room
+    {}, // library
+    {}, // armory
+    {}, // treasure room
+    {} // hall
+};
+
+
+
 // Differnt room types and their corresponding numbers
 // 0 is the defalt
-roomType roomTypes[12] = {
+RoomType roomTypes[12] = {
     {"Unused", "", false}, // 0
     {"King's bedroom", "An almost sacred room only to be tread in the most necessary of times.", true}, // 1
     {"kitchen", "A room full of wondrous smells where food fit for kings (of course) is made.", true}, // 2

@@ -166,7 +166,7 @@ void binarySpacePartitioning(vector<vector<int> > &mapMatrix, int iterations, bo
 void designateRooms(){
     vector<int> necessaryRoomOrder; // Create a vector of neccisary rooms that will be shuffled. This new array will determin the order rooms are added
     vector<int> unnecessaryRoomOrder; // Create a vector of unneccisary rooms that will be shuffled.
-    for (int i = 0; i < 12; i++){
+    for (int i = 0; i < (sizeof(roomTypes)/sizeof(roomTypes[0])); i++){
         if (roomTypes[i].mandatory){
             necessaryRoomOrder.push_back(i);
         } else {
@@ -186,20 +186,31 @@ void designateRooms(){
     }
 }
 
+void fillRoom(){
+    for (int i = 0; i < roomCoordinates.size(); i++){
+        int currentRoomType = castleMap[roomCoordinates[i][1] + 1][roomCoordinates[i][0] + 1].roomType;
+        for (int y = roomCoordinates[i][1] + 1; y < roomCoordinates[i][3] - 1; y++){
+            for (int x = roomCoordinates[i][0] + 1; x < roomCoordinates[i][2] - 1; x++){
+                if (y == roomCoordinates[i][1] + 1 && x == roomCoordinates[i][0] + 1){
+                    castleMap[y][x].itemInTile = roomFilling[currentRoomType].manditoryItem;
+                    castleMap[y][x].funitureInTile = roomFilling[currentRoomType].manditoryFurniture;
+                } else if (rand() % 10 == 0){
+                    if (roomFilling[currentRoomType].possibleItems.size() > 0){
+                        castleMap[y][x].itemInTile = roomFilling[currentRoomType].possibleItems[(rand() % roomFilling[currentRoomType].possibleItems.size())];
+                    }
+                    if (roomFilling[currentRoomType].possibleFurniture.size() > 0){
+                        castleMap[y][x].funitureInTile = roomFilling[currentRoomType].possibleFurniture[(rand() % roomFilling[currentRoomType].possibleFurniture.size())];
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 // Put the player on the map
 void placePlayer(){
-    /*bool flag = true;
-    do {
-        int tempX = rand() % (CASTLE_WIDTH - 1);
-        int tempY = rand() % (CASTLE_HIGHT - 1);
-        if (tileType[castleMap[tempY][tempX].type] == "Floor"){ // Is this a location the player can exist on
-            player.X = tempX; // Set player X
-            player.Y = tempY; // Set player Y
-            castleMap[tempY][tempX].isCurrentPlayerLocation = true; // Set this tile's isCurrentPlayerLocation 
-            flag = false; // Stop trying random locations
-        }
-    } while(flag); // While we haven't found a good location*/
     for(int y = 0; y < CASTLE_HIGHT; y++){
         for(int x = 0; x < CASTLE_WIDTH; x++){
             if (castleMap[y][x].roomType == 5){ // The servent's corrder
@@ -224,5 +235,6 @@ void genCastle(){
     vector<vector<int> >().swap(basicMapMatrix); // Hack to release basicMapMatrix
     designateRooms(); // Turn ordinary rooms into cool rooms
     placePlayer();
+    fillRoom();
     setTileLocations(castleMap); 
 }
