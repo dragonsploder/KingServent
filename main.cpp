@@ -12,7 +12,7 @@ GameFlags gameFlags;
 int seed = 0;
 bool needPrintMap = false;
 
-Furniture emptyFuniture = {"Empty"};
+Furniture emptyFurniture = {"Empty"};
 Item emptyItem = {"Empty"};
 People emptyPerson = {"Empty"};
 

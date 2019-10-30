@@ -39,7 +39,7 @@ string genPlayerEnterRoomMessage(){
 }
 
 string genCurrentRoomDescription(){
-    return roomTypes[currentRoomFlags.roomType].discription;
+    return roomTypes[currentRoomFlags.roomType].description;
 }
 
 string genCurrentRoomItemList(){
@@ -47,7 +47,9 @@ string genCurrentRoomItemList(){
     int i;
     for (i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
         message.append(currentRoomFlags.itemsInRoom[i].name);
-        message.append("\n");
+        if (i != currentRoomFlags.itemsInRoom.size() - 1){
+            message.append("\n");
+        }
     }
     if (i == 0){
         message = "There are no items in this room.";
@@ -60,7 +62,9 @@ string genCurrentRoomFurnitureList(){
     int i;
     for (i = 0; i < currentRoomFlags.furnitureInRoom.size(); i++){
         message.append(currentRoomFlags.furnitureInRoom[i].name);
-        message.append("\n");
+        if (i != currentRoomFlags.furnitureInRoom.size() - 1){
+            message.append("\n");
+        }
     }
     if (i == 0){
         message = "There is no furniture in this room.";

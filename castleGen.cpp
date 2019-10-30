@@ -188,16 +188,20 @@ void designateRooms(){
 
 void fillRoom(){
     for (int i = 0; i < roomCoordinates.size(); i++){
+        int thingsInRoom = 2;
         int currentRoomType = castleMap[roomCoordinates[i][1] + 1][roomCoordinates[i][0] + 1].roomType;
         for (int y = roomCoordinates[i][1] + 1; y < roomCoordinates[i][3] - 1; y++){
             for (int x = roomCoordinates[i][0] + 1; x < roomCoordinates[i][2] - 1; x++){
                 if (y == roomCoordinates[i][1] + 1 && x == roomCoordinates[i][0] + 1){
-                    castleMap[y][x].itemInTile = roomFilling[currentRoomType].manditoryItem;
-                    castleMap[y][x].funitureInTile = roomFilling[currentRoomType].manditoryFurniture;
-                } else if (rand() % 10 == 0){
+                    castleMap[y][x].itemInTile = roomFilling[currentRoomType].mandatoryItem;
+                    castleMap[y][x].funitureInTile = roomFilling[currentRoomType].mandatoryFurniture;
+                } else if (rand() % PUT_THING_IN_ROOM == 0 && thingsInRoom <= ITEM_CAP){
+                    thingsInRoom++;
                     if (roomFilling[currentRoomType].possibleItems.size() > 0){
                         castleMap[y][x].itemInTile = roomFilling[currentRoomType].possibleItems[(rand() % roomFilling[currentRoomType].possibleItems.size())];
                     }
+                } else if (rand() % PUT_THING_IN_ROOM == 0 && thingsInRoom <= ITEM_CAP){
+                    thingsInRoom++;
                     if (roomFilling[currentRoomType].possibleFurniture.size() > 0){
                         castleMap[y][x].funitureInTile = roomFilling[currentRoomType].possibleFurniture[(rand() % roomFilling[currentRoomType].possibleFurniture.size())];
                     }

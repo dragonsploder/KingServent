@@ -8,26 +8,18 @@
 #define CASTLE_WIDTH 40 //Width of the castle 
 #define CASTLE_HIGHT 40 // Hight of the castle
 #define ROOM_ITERATIONS 3 // Number of times the BSP system will split the rooms
-
-struct Furniture { // Furniture has a:
-    std::string name;
-    std::string discription;
-    bool container;
-    int typeOfContainer;
-};
-
-extern Furniture emptyFuniture;
+#define PUT_THING_IN_ROOM 15 // 1 out of n chance for every tile
+#define ITEM_CAP 7 // 1 out of n chance for every tile
 
 struct ElementaryItem { // Unbreackable base item 
     std::string name;
-    std::string discription;
-    int size;
+    std::string description;
     bool liquid;
 };
 
 struct Item { // An item made fromm ElementaryItem
     std::string name;
-    std::string discription;
+    std::string description;
     std::vector<ElementaryItem> parts;
     int integrity;
     int size;
@@ -35,9 +27,18 @@ struct Item { // An item made fromm ElementaryItem
 
 extern Item emptyItem;
 
+struct Furniture { // Furniture has a:
+    std::string name;
+    std::string description;
+    int typeOfContainer;
+    std::vector<Item> itemsContained = {};
+};
+
+extern Furniture emptyFurniture;
+
 struct People { // People have a:
     std::string name;
-    std::string discription;
+    std::string description;
     int X; // Current location X
     int Y; // Current location X
     int socialClass;
@@ -48,8 +49,8 @@ extern People emptyPerson;
 
 struct Tile { // Every tile of the castle has a:
     std::string name;
-    std::string discription;
-    Furniture funitureInTile = emptyFuniture; // A tile can only have one piece of furniture
+    std::string description;
+    Furniture funitureInTile = emptyFurniture; // A tile can only have one piece of furniture
     People personInTile = emptyPerson; // A tile can only have one person
     Item itemInTile = emptyItem; // A tile can have one item
 
@@ -59,8 +60,8 @@ struct Tile { // Every tile of the castle has a:
     bool floodFlag = false; // Used in floodFill()
     bool isCurrentPlayerLocation = false; // Does the player occupy this tile
     bool isOpen = false; // Used if tile is a door 
-    int X; // This tile's x on the catle
-    int Y; // This tile's y on the catle
+    int X; // This tile's x on the castle
+    int Y; // This tile's y on the castle
 };
 
 struct GameFlags { // flags used to tell the game what to do
@@ -76,9 +77,9 @@ struct RoomLocationFlags { // Information about a room
     std::vector<Item> itemsInRoom; // What items are in this room
     std::vector<Furniture> furnitureInRoom; // What furniture is in this room
 
-    std::vector<std::vector<int> > doors; // Were are the doways
+    std::vector<std::vector<int> > doors; // Were are the doorways
                                           // Format (y, x, direction)
-                                          // Direction is 1-4 corresponding to north, east, south, west respectivly
+                                          // Direction is 1-4 corresponding to north, east, south, west respectively
 
     int hight; // Hight of the room
     int width; // Width of the room
@@ -87,16 +88,16 @@ struct RoomLocationFlags { // Information about a room
 
 struct RoomType {
     std::string name;
-    std::string discription;
+    std::string description;
 
     bool mandatory;
 };
 
 struct RoomFilling { // What items go in what rooms
-    Item manditoryItem;
+    Item mandatoryItem;
     std::vector<Item> possibleItems;
 
-    Furniture manditoryFurniture;
+    Furniture mandatoryFurniture;
     std::vector<Furniture> possibleFurniture;
 };
 

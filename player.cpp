@@ -27,9 +27,9 @@ void executeCommand(int command){
     if (command == 1){
         if (gameFlags.input[1] == "None"){
             gameFlags.printCurrentRoomDescription = true;
-        } else if (gameFlags.input[1] == "items"){
+        } else if (gameFlags.input[1] == "items" || gameFlags.input[1] == "i"){
             gameFlags.printCurrentRoomItems = true;
-        } else if (gameFlags.input[1] == "furniture"){
+        } else if (gameFlags.input[1] == "furniture" || gameFlags.input[1] == "f"){
             gameFlags.printCurrentRoomFurniture = true;
         }
     } else if (1 < command && command < 6){

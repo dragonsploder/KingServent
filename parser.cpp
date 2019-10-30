@@ -64,7 +64,7 @@ int getInput(){
 bool isValidInput(int input){
     switch (input){
         case 1:
-            if (gameFlags.input[1] == "None" || gameFlags.input[1] == "items" || gameFlags.input[1] == "furniture"){
+            if (gameFlags.input[1] == "None" || gameFlags.input[1] == "items" || gameFlags.input[1] == "i" || gameFlags.input[1] == "furniture" || gameFlags.input[1] == "f"){
                 return true;
             }
             break;
