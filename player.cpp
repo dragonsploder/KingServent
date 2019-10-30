@@ -29,6 +29,8 @@ void executeCommand(int command){
             gameFlags.printCurrentRoomDescription = true;
         } else if (gameFlags.input[1] == "items"){
             gameFlags.printCurrentRoomItems = true;
+        } else if (gameFlags.input[1] == "furniture"){
+            gameFlags.printCurrentRoomFurniture = true;
         }
     } else if (1 < command && command < 6){
         for (int i = 0; i < currentRoomFlags.doors.size(); i++){

@@ -80,9 +80,9 @@ string commands[9][10] = {
 // Description: string
 // Liquid: bool
 // Size: int
-ElementaryItem elementaryItems[2] = {
+const ElementaryItem elementaryItems[] = {
     {"Egg Shell", "A thin lay of protection for a growing animal.", 1, false},
-    {"Egg Yolk", "A slimy substance full of nutrieantes, or so I'm told.", 1, true}
+    {"Egg Yolk", "A slimy substance full of nutrientes, or so I'm told.", 1, true}
 };
  
 // An item made fromm ElementaryItem
@@ -91,8 +91,16 @@ ElementaryItem elementaryItems[2] = {
 // Vector of elementaryItems
 // integrity: int
 // Size: int
-Item Items[1] = {                                            
-    {"Chicken Egg", "Layed by a chicken, this fragile, oval object will produce a chiken if left alon long enough.", {elementaryItems[0], elementaryItems[1]}, 1, 1}
+const Item items[] = {                                            
+    {"Chicken Egg", "Layed by a chicken, this fragile, oval object will produce a chiken if left alone long enough.", {elementaryItems[0], elementaryItems[1]}, 1, 1}
+};
+
+// std::string name;
+// std::string discription;
+// bool container;
+// int typeOfContainer;
+const Furniture furniture[] = {
+    {"Chair", "A seat for one person, usually has a back and four legs. Sadly does not walk.", false, 0}
 };
 
 
@@ -103,7 +111,7 @@ Item Items[1] = {
 const RoomFilling roomFilling[12] = {
     {}, // Unused
     {}, // King's bedroom
-    {Items[0]}, // kitchen
+    {items[0], {}, furniture[0]}, // kitchen
     {}, // storeroom
     {}, // dinning room
     {}, // servants corridor

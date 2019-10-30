@@ -55,6 +55,19 @@ string genCurrentRoomItemList(){
     return message;
 }
 
+string genCurrentRoomFurnitureList(){
+    string message;
+    int i;
+    for (i = 0; i < currentRoomFlags.furnitureInRoom.size(); i++){
+        message.append(currentRoomFlags.furnitureInRoom[i].name);
+        message.append("\n");
+    }
+    if (i == 0){
+        message = "There is no furniture in this room.";
+    }
+    return message;
+}
+
 void printMessages(){
     if (gameFlags.printNewRoomMessage){
         printString(genPlayerEnterRoomMessage()); // Print out a message describing room
@@ -67,5 +80,9 @@ void printMessages(){
     if (gameFlags.printCurrentRoomItems){
         printString(genCurrentRoomItemList());
         gameFlags.printCurrentRoomItems = false;
+    }
+    if (gameFlags.printCurrentRoomFurniture){
+        printString(genCurrentRoomFurnitureList());
+        gameFlags.printCurrentRoomFurniture = false;
     }
 }

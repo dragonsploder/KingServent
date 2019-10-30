@@ -68,6 +68,7 @@ struct GameFlags { // flags used to tell the game what to do
     bool printNewRoomMessage = false; // Have we entered a new room
     bool printCurrentRoomDescription = false; // Do we want to see our surroundings
     bool printCurrentRoomItems = false; // What items are in this room
+    bool printCurrentRoomFurniture = false; // What furniture is in this room
 };
 
 struct RoomLocationFlags { // Information about a room

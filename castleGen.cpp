@@ -207,8 +207,6 @@ void fillRoom(){
     }
 }
 
-
-
 // Put the player on the map
 void placePlayer(){
     for(int y = 0; y < CASTLE_HIGHT; y++){
