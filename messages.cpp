@@ -1,4 +1,7 @@
 #include <string>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
 
 #include "KingServent.h"
 
@@ -42,32 +45,54 @@ string genCurrentRoomDescription(){
     return roomTypes[currentRoomFlags.roomType].description;
 }
 
-string genCurrentRoomItemList(){
+string genCurrentRoomThingList(bool showItems){
+    vector<string> thingsInRoom;
     string message;
+    vector<string> messageArray;
+    vector<int> wordOccurrence;
+    bool exists;
     int i;
-    for (i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
-        message.append(currentRoomFlags.itemsInRoom[i].name);
-        if (i != currentRoomFlags.itemsInRoom.size() - 1){
-            message.append("\n");
+    if (showItems){
+        for (i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
+            thingsInRoom.push_back(currentRoomFlags.itemsInRoom[i].name);
+        }
+    } else {
+        for (i = 0; i < currentRoomFlags.furnitureInRoom.size(); i++){
+            thingsInRoom.push_back(currentRoomFlags.furnitureInRoom[i].name);
         }
     }
-    if (i == 0){
-        message = "There are no items in this room.";
-    }
-    return message;
-}
 
-string genCurrentRoomFurnitureList(){
-    string message;
-    int i;
-    for (i = 0; i < currentRoomFlags.furnitureInRoom.size(); i++){
-        message.append(currentRoomFlags.furnitureInRoom[i].name);
-        if (i != currentRoomFlags.furnitureInRoom.size() - 1){
+    for (i = 0; i < thingsInRoom.size(); i++){
+        exists = false;
+        for (int j = 0; j < messageArray.size(); j++){
+            if (thingsInRoom[i] == messageArray[j]){
+                wordOccurrence[j]++;
+                exists = true;
+                break;
+            }
+        }
+        if(!exists){
+            messageArray.push_back(thingsInRoom[i]);
+            wordOccurrence.push_back(1);
+        }
+    }
+    for (i = 0; i < messageArray.size(); i++){
+        message.append(to_string(wordOccurrence[i]));
+        message.append(" ");
+        message.append(messageArray[i]);
+        if (wordOccurrence[i] != 1){
+            message.append("s");
+        }
+        if (i != messageArray.size() - 1){
             message.append("\n");
         }
     }
     if (i == 0){
-        message = "There is no furniture in this room.";
+        if (showItems){
+            message = "There are no items in this room.";
+        } else {
+            message = "There is no furniture in this room.";
+        }
     }
     return message;
 }
@@ -82,11 +107,11 @@ void printMessages(){
         gameFlags.printCurrentRoomDescription = false;
     }
     if (gameFlags.printCurrentRoomItems){
-        printString(genCurrentRoomItemList());
+        printString(genCurrentRoomThingList(true));
         gameFlags.printCurrentRoomItems = false;
     }
     if (gameFlags.printCurrentRoomFurniture){
-        printString(genCurrentRoomFurnitureList());
+        printString(genCurrentRoomThingList(false));
         gameFlags.printCurrentRoomFurniture = false;
     }
 }

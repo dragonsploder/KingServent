@@ -26,7 +26,7 @@ int getInput(){
         }
 
         stringstream ssin(rawinput);
-        for(int i = 0; ssin.good() && i < 4; ++i){
+        for(int i = 0; ssin.good() && i < 2; ++i){
             ssin >> input[i];
         }
 

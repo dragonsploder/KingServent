@@ -129,6 +129,7 @@ const Item items[] = {
     {"Gold bar", "A brick of gold. What you would give for just one of them.", {elementaryItems[13]}, 3, 1}, // 10
     {"Painting", "A painted picture, Could be of literally anything. Some call it art, some, dont.", {elementaryItems[14], elementaryItems[8], elementaryItems[3]}, 2, 3}, // 11
     {"Pan", "An open container used to cook food.", {elementaryItems[15]}, 3, 2}, // 12
+    {"Fancy painting", "Like a painting, but worth more.", {elementaryItems[14], elementaryItems[8], elementaryItems[3]}, 2, 3}, // 13
 };
 
 // std::string name;
@@ -150,7 +151,9 @@ const Furniture furniture[] = {
     {"Dartboard", "A board hung on a wall which darts are thrown at for points", 3}, // 6
     {"Coffee table", "A small table used to hold small items (like coffee).", 3}, // 7
     {"Oven", "An enclosed compartment used for heating food", 5}, // 8
-    {"Desk", "A place were one can sit and do work. Or procrastinate.", 3} // 9
+    {"Desk", "A place were one can sit and do work. Or procrastinate.", 3}, // 9
+    {"Training dummy", "A fake person (hopefully you knew that), used to practice fighting skills.", 0}, // 10
+    {"Piano", "A large percussion instrument were tiny hammers hit strings of different length.", 0} // 11
 };
 
 
@@ -166,10 +169,10 @@ const RoomFilling roomFilling[12] = {
     {items[5], {items[3], items[4]}, furniture[4], {furniture[5]}}, // dinning room
     {items[1], {}, furniture[1]}, // servants corridor
     {items[6], {}, furniture[6], {furniture[7]}}, // game room
-    {items[7]}, // music room
+    {items[7], {}, furniture[11]}, // music room
     {items[8], {}, furniture[9]}, // library
-    {items[9]}, // armory
-    {items[10], {items[11]}}, // treasure room
+    {items[9], {}, furniture[10]}, // armory
+    {items[10], {items[11]}, furniture[14]}, // treasure room
     {items[11], {}, furniture[7]} // hall
 };
 
