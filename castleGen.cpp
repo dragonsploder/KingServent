@@ -30,7 +30,7 @@ void printMap(){
             } else if (tileType[castleMap[h][w].type] == "Wall"){ // If Wall
                 printf("#");
             } else if (tileType[castleMap[h][w].type] == "Door"){ // If Door
-                if (castleMap[h][w].isOpen){ // Is the door oepn
+                if (castleMap[h][w].isOpen){ // Is the door open
                     printf("\'");
                 } else {
                     printf("+");
@@ -47,7 +47,7 @@ void printMap(){
 /**
  * The basic idea for this generator is a BSP (or Binary Space Partitioning) system.
  * The function starts with one room which it randomly splits in half
- * It does this several times until a desierd amount of rooms have been created
+ * It does this several times until a desired amount of rooms have been created
  * Each room is connected to its "split partner" with a door
 **/
 // Iteration is how many times every room will be split
@@ -164,9 +164,9 @@ void binarySpacePartitioning(vector<vector<int> > &mapMatrix, int iterations, bo
 }
 
 void designateRooms(){
-    vector<int> necessaryRoomOrder; // Create a vector of neccisary rooms that will be shuffled. This new array will determin the order rooms are added
-    vector<int> unnecessaryRoomOrder; // Create a vector of unneccisary rooms that will be shuffled.
-    for (int i = 0; i < (sizeof(roomTypes)/sizeof(roomTypes[0])); i++){
+    vector<int> necessaryRoomOrder; // Create a vector of necessary rooms that will be shuffled. This new array will determin the order rooms are added
+    vector<int> unnecessaryRoomOrder; // Create a vector of unnecessary rooms that will be shuffled.
+    for (int i = 1; i < (sizeof(roomTypes)/sizeof(roomTypes[0])); i++){
         if (roomTypes[i].mandatory){
             necessaryRoomOrder.push_back(i);
         } else {
