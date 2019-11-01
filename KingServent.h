@@ -65,7 +65,7 @@ struct Tile { // Every tile of the castle has a:
 };
 
 struct GameFlags { // flags used to tell the game what to do
-    std::string input[2]; 
+    std::string input[4]; 
     bool printNewRoomMessage = false; // Have we entered a new room
     bool printCurrentRoomDescription = false; // Do we want to see our surroundings
     bool printCurrentRoomItems = false; // What items are in this room
@@ -128,7 +128,7 @@ extern std::string directions[]; // String array of directions n,e,s,w
 extern char roomDescriptionMessages[][50];
 extern std::string doorMessages[]; // String array of messages used to discribe doorways
 extern std::string miscResponses[]; // Strings that had no other home
-extern std::string commands[9][10]; // String array of possible commands
+extern const std::string commands[10][10]; // String array of possible commands
 extern RoomType roomTypes[12]; // Differnt room types and their corresponding numbers
 extern const RoomFilling roomFilling[12]; // What to put in those rooms
 // END data

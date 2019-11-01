@@ -43,12 +43,15 @@ char roomDescriptionMessages[][50] = {
 
 // Strings that had no other home
 string miscResponses[] = {
-    "I didn't understand that",
-    ">",
-    "Developer Error",
-    "You can't do that right now",
-    "Are you sure you want to exit?",
-    "Ok"
+    "I didn't understand that", // 0
+    ">", // 1
+    "Developer Error", // 2
+    "You can't do that right now", // 3
+    "Are you sure you want to exit?", // 4
+    "Ok", // 5
+    "Examane what?", // 6
+    "There is no ", // 7
+    " in this room." // 8
 };
 
 /**
@@ -62,8 +65,9 @@ string miscResponses[] = {
  * 6: "Quit" - Quit the game
  * 7: "Yes"
  * 8: "No"
+ * 9: "Examane" - describe on abj.
 **/
-string commands[9][10] = {
+const string commands[10][10] = {
     {"Reserved"},
     {"look",  "l", "lk"},
     {"north", "n", "nth"},
@@ -72,7 +76,8 @@ string commands[9][10] = {
     {"west", "w", "wst"},
     {"quit", "exit"},
     {"yes"},
-    {"no"}
+    {"no"},
+    {"examane", "ex"}
 };
 
 // Unbreackable base item 
@@ -87,7 +92,7 @@ const ElementaryItem elementaryItems[] = {
     {"Plastic", "Don't tell anyone, but it existed way before people thought.", false}, // 4
     {"Wax", "A moldable substance made by bees.", false}, // 5
     {"Wick", "A strip of a flamable material", false}, // 6
-    {"Water", "A clear liquid used in almost eerything, most notably life.", true}, // 7
+    {"Water", "A clear liquid used in almost everything, most notably life.", true}, // 7
     {"Cloth", "Woven fabric made form wool.", false}, // 8
     {"Ceramic", "Clay hardend from heat.", false}, // 9
     {"String", "A long thin cord.", false}, // 10
@@ -145,7 +150,7 @@ const Furniture furniture[] = {
     {"Chair", "A seat for one person, usually has a back and four legs. Sadly does not walk.", 0}, // 0
     {"Bed", "A place for sleeping, often has a mattress, pillow, and blanket.", 0}, // 1
     {"King's bed", "A big fancy bed which talks up half the room.", 0}, // 2
-    {"Shelf", "A rigid rectangle attached to a wall, used to storethings.", 3}, // 3
+    {"Shelf", "A rigid rectangle attached to a wall, used to store things.", 3}, // 3
     {"Table", "A big rectangle with four legs, usually eaten off of.", 3}, // 4
     {"Fireplace", "A place for controlled fire, hopfully at the base of a chimany", 5}, // 5
     {"Dartboard", "A board hung on a wall which darts are thrown at for points", 3}, // 6

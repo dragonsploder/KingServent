@@ -61,6 +61,17 @@ void executeCommand(int command){
             exit(0);
         }
         printString(miscResponses[5]);
+    } else if (command == 9) {
+        for (int i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
+            if (gameFlags.input[1] == currentRoomFlags.itemsInRoom[i].name){
+                printString(currentRoomFlags.itemsInRoom[i].description);
+            }
+        }
+        for (int i = 0; i < currentRoomFlags.furnitureInRoom.size(); i++){
+            if (gameFlags.input[1] == currentRoomFlags.furnitureInRoom[i].name){
+                printString(currentRoomFlags.furnitureInRoom[i].description);
+            }
+        }
     } else {
         printString(miscResponses[2]);
     }

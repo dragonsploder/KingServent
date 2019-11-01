@@ -10,7 +10,9 @@ using namespace std;
 // Get user input, return corresponding number
 int getInput(){
     string rawinput; //
-    string input[2] = {
+    string input[4] = {
+        "None",
+        "None",
         "None",
         "None"
     };
@@ -26,7 +28,7 @@ int getInput(){
         }
 
         stringstream ssin(rawinput);
-        for(int i = 0; ssin.good() && i < 2; ++i){
+        for(int i = 0; ssin.good() && i < 4; ++i){
             ssin >> input[i];
         }
 
@@ -45,6 +47,8 @@ int getInput(){
     } while (command == 0); // While a valid command use not been inputed
     gameFlags.input[0] = input[0];
     gameFlags.input[1] = input[1];
+    gameFlags.input[2] = input[2];
+    gameFlags.input[3] = input[3];
     return command;
 }
 
@@ -59,9 +63,12 @@ int getInput(){
  * 6: "Quit" - Quit the game
  * 7: "Yes"
  * 8: "No"
+ * 9: "Examane" - describe on abj.
 **/
 
 bool isValidInput(int input){
+    string lowerCaseName;
+    string userObjectName;
     switch (input){
         case 1:
             if (gameFlags.input[1] == "None" || gameFlags.input[1] == "items" || gameFlags.input[1] == "i" || gameFlags.input[1] == "furniture" || gameFlags.input[1] == "f"){
@@ -80,6 +87,46 @@ bool isValidInput(int input){
                 }
             }
             break;
+        case 9:
+            if (gameFlags.input[1] == "None") {
+                printString(miscResponses[6]);
+                return false;
+            } 
+
+            userObjectName.append(gameFlags.input[1]);
+            if (gameFlags.input[2] != "None"){
+                userObjectName.append(" ");
+                userObjectName.append(gameFlags.input[2]);
+            }
+            if (gameFlags.input[3] != "None"){
+                userObjectName.append(" ");
+                userObjectName.append(gameFlags.input[3]);
+            }
+
+            for (int i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
+                lowerCaseName = currentRoomFlags.itemsInRoom[i].name;
+                for (int j = 0; j < lowerCaseName.size(); j++){
+                    lowerCaseName[j] = tolower(lowerCaseName[j]);
+                }
+                if (userObjectName == lowerCaseName){
+                    gameFlags.input[1] = currentRoomFlags.itemsInRoom[i].name;
+                    return true;
+                }
+            }
+            for (int i = 0; i < currentRoomFlags.furnitureInRoom.size(); i++){
+                lowerCaseName = currentRoomFlags.furnitureInRoom[i].name;
+                for (int j = 0; j < lowerCaseName.size(); j++){
+                    lowerCaseName[j] = tolower(lowerCaseName[j]);
+                }
+                if (userObjectName == lowerCaseName){
+                    gameFlags.input[1] = currentRoomFlags.furnitureInRoom[i].name;
+                    return true;
+                }
+            }
+            printString(miscResponses[7], false);
+            printString(userObjectName, false);
+            printString(miscResponses[8]);
+            return false;
         default:
             printString(miscResponses[2]);
     }
