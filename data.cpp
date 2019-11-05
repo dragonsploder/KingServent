@@ -51,23 +51,26 @@ string miscResponses[] = {
     "Ok", // 5
     "Examane what?", // 6
     "There is no ", // 7
-    " in this room." // 8
+    " here." // 8
 };
 
 /**
  * Input commands are all connected to a number:
  * 0: Reserved
- * 1: "Look" - Used to examine surroundings  
- * 2: "North" - Go north
- * 3: "East" - Go east
- * 4: "South" - Go south
- * 5: "West" - Go west
- * 6: "Quit" - Quit the game
- * 7: "Yes"
- * 8: "No"
- * 9: "Examane" - describe on abj.
+ * 1:  "Look" - Used to examine surroundings  
+ * 2:  "North" - Go north
+ * 3:  "East" - Go east
+ * 4:  "South" - Go south
+ * 5:  "West" - Go west
+ * 6:  "Quit" - Quit the game
+ * 7:  "Yes"
+ * 8:  "No"
+ * 9:  "Examane" - describe on abj.
+ * 10: "Inventory" - view inventory
+ * 11: "Get" - Pick up an obj
+ * 12: "Drop" - Drop an obj
 **/
-const string commands[10][10] = {
+const string commands[13][10] = {
     {"Reserved"},
     {"look",  "l", "lk"},
     {"north", "n", "nth"},
@@ -77,7 +80,10 @@ const string commands[10][10] = {
     {"quit", "exit"},
     {"yes"},
     {"no"},
-    {"examane", "ex"}
+    {"examane", "ex"},
+    {"inventory", "i", "inv"},
+    {"get", "grab", "take", "g"},
+    {"drop", "d"}
 };
 
 // Unbreackable base item 
@@ -101,6 +107,8 @@ const ElementaryItem elementaryItems[] = {
     {"Gold", "A shiny, yellow precious metal.", false}, // 13
     {"Paint", "A liquid which comes in many different colors. Used in \"art\".", true}, // 14
     {"Cast iron", "A hard iron alloy.", false}, // 15
+    {"Flour", "A powdery substance made from grinding wheat.", false}, // 16
+    {"Yeast", "A microscopic fungus which people eat", false}, // 17
 };
  
 // An item made fromm ElementaryItem
@@ -130,11 +138,13 @@ const Item items[] = {
     {"Dart", "A small pointed missile which is (usually) thrown at a dart board in a friendly game.", {elementaryItems[2]}, 3, 1}, // 6
     {"Lute", "A plucked string instrament.", {elementaryItems[3], elementaryItems[10]}, 2, 3}, // 7
     {"Book", "Leather bound pieces of paper which tell a story or explain something.", {elementaryItems[11], elementaryItems[12]}, 2, 2}, // 8
-    {"Metal Armor", "Several protective sheets of metal usually worn in battle.", {elementaryItems[2]}, 3, 4}, // 9
+    {"Metal armor", "Several protective sheets of metal usually worn in battle.", {elementaryItems[2]}, 3, 4}, // 9
     {"Gold bar", "A brick of gold. What you would give for just one of them.", {elementaryItems[13]}, 3, 1}, // 10
     {"Painting", "A painted picture, Could be of literally anything. Some call it art, some, dont.", {elementaryItems[14], elementaryItems[8], elementaryItems[3]}, 2, 3}, // 11
     {"Pan", "An open container used to cook food.", {elementaryItems[15]}, 3, 2}, // 12
     {"Fancy painting", "Like a painting, but worth more.", {elementaryItems[14], elementaryItems[8], elementaryItems[3]}, 2, 3}, // 13
+    {"Shirt", "A garment for the upper body.", {elementaryItems[8]}, 2, 2}, // 14
+    {"Hardtack", "Hard, dry biscuit. Yum.", {elementaryItems[7], elementaryItems[16], elementaryItems[17]}, 4, 1}, // 15
 };
 
 // std::string name;

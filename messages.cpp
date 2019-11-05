@@ -114,4 +114,13 @@ void printMessages(){
         printString(genCurrentRoomThingList(false));
         gameFlags.printCurrentRoomFurniture = false;
     }
+    if (gameFlags.printInventory){
+        for (int i = 0; i < player.itemsInInventory.size(); i++){
+            printString(player.itemsInInventory[i].name);
+        }
+        for (int i = 0; i < player.elementaryItemsInInventory.size(); i++){
+            printString(player.elementaryItemsInInventory[i].name);
+        }
+        gameFlags.printInventory = false;
+    }
 }

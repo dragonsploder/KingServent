@@ -39,6 +39,8 @@ extern Furniture emptyFurniture;
 struct People { // People have a:
     std::string name;
     std::string description;
+    std::vector<Item> itemsInInventory;
+    std::vector<ElementaryItem> elementaryItemsInInventory;
     int X; // Current location X
     int Y; // Current location X
     int socialClass;
@@ -70,6 +72,7 @@ struct GameFlags { // flags used to tell the game what to do
     bool printCurrentRoomDescription = false; // Do we want to see our surroundings
     bool printCurrentRoomItems = false; // What items are in this room
     bool printCurrentRoomFurniture = false; // What furniture is in this room
+    bool printInventory = false;
 };
 
 struct RoomLocationFlags { // Information about a room
@@ -128,9 +131,11 @@ extern std::string directions[]; // String array of directions n,e,s,w
 extern char roomDescriptionMessages[][50];
 extern std::string doorMessages[]; // String array of messages used to discribe doorways
 extern std::string miscResponses[]; // Strings that had no other home
-extern const std::string commands[10][10]; // String array of possible commands
+extern const std::string commands[13][10]; // String array of possible commands
 extern RoomType roomTypes[12]; // Differnt room types and their corresponding numbers
 extern const RoomFilling roomFilling[12]; // What to put in those rooms
+
+extern const Item items[]; // The stuff
 // END data
 
 // room 

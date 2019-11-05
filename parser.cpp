@@ -55,15 +55,18 @@ int getInput(){
 /**
  * Input commands are all connected to a number:
  * 0: Reserved
- * 1: "Look" - Used to examine surroundings  
- * 2: "North" - Go north
- * 3: "East" - Go east
- * 4: "South" - Go south
- * 5: "West" - Go west
- * 6: "Quit" - Quit the game
- * 7: "Yes"
- * 8: "No"
- * 9: "Examane" - describe on abj.
+ * 1:  "Look" - Used to examine surroundings  
+ * 2:  "North" - Go north
+ * 3:  "East" - Go east
+ * 4:  "South" - Go south
+ * 5:  "West" - Go west
+ * 6:  "Quit" - Quit the game
+ * 7:  "Yes"
+ * 8:  "No"
+ * 9:  "Examane" - describe on abj.
+ * 10: "Inventory" - view inventory
+ * 11: "Get" - Pick up an obj
+ * 12: "Drop" - Drop an obj
 **/
 
 bool isValidInput(int input){
@@ -76,6 +79,7 @@ bool isValidInput(int input){
             }
             break;
         case 6:
+        case 10:
             return true;
         case 2:
         case 3:
@@ -120,6 +124,16 @@ bool isValidInput(int input){
                 }
                 if (userObjectName == lowerCaseName){
                     gameFlags.input[1] = currentRoomFlags.furnitureInRoom[i].name;
+                    return true;
+                }
+            }
+            for (int i = 0; i < player.itemsInInventory.size(); i++){
+                lowerCaseName = player.itemsInInventory[i].name;
+                for (int j = 0; j < lowerCaseName.size(); j++){
+                    lowerCaseName[j] = tolower(lowerCaseName[j]);
+                }
+                if (userObjectName == lowerCaseName){
+                    gameFlags.input[1] = player.itemsInInventory[i].name;
                     return true;
                 }
             }

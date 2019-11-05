@@ -14,14 +14,18 @@ void movePlayer(int Y, int X){
 /**
  * Input commands are all connected to a number:
  * 0: Reserved
- * 1: "Look" - Used to examine surroundings  
- * 2: "North" - Go north
- * 3: "East" - Go east
- * 4: "South" - Go south
- * 5: "West" - Go west
- * 6: "Quit" - Quit the game
- * 7: "Yes"
- * 8: "No"
+ * 1:  "Look" - Used to examine surroundings  
+ * 2:  "North" - Go north
+ * 3:  "East" - Go east
+ * 4:  "South" - Go south
+ * 5:  "West" - Go west
+ * 6:  "Quit" - Quit the game
+ * 7:  "Yes"
+ * 8:  "No"
+ * 9:  "Examane" - describe on abj.
+ * 10: "Inventory" - view inventory
+ * 11: "Get" - Pick up an obj
+ * 12: "Drop" - Drop an obj
 **/
 void executeCommand(int command){
     if (command == 1){
@@ -72,6 +76,13 @@ void executeCommand(int command){
                 printString(currentRoomFlags.furnitureInRoom[i].description);
             }
         }
+        for (int i = 0; i < player.itemsInInventory.size(); i++){
+            if (gameFlags.input[1] == player.itemsInInventory[i].name){
+                printString(player.itemsInInventory[i].description);
+            }
+        }
+    } else if (command == 10){
+        gameFlags.printInventory = true;
     } else {
         printString(miscResponses[2]);
     }
