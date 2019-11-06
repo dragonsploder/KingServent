@@ -187,14 +187,17 @@ void designateRooms(){
 }
 
 void fillRoom(){
-    for (int i = 0; i < roomCoordinates.size(); i++){
+    for (int i = 0; i < roomCoordinates.size() - 1; i++){ // minus one from extra full castle room;
         int thingsInRoom = 2;
         int currentRoomType = castleMap[roomCoordinates[i][1] + 1][roomCoordinates[i][0] + 1].roomType;
-        for (int y = roomCoordinates[i][1] + 1; y < roomCoordinates[i][3] - 1; y++){
-            for (int x = roomCoordinates[i][0] + 1; x < roomCoordinates[i][2] - 1; x++){
+        printf("Y:%i  ", roomCoordinates[i][1] + 1);
+        printf("X:%i  ", roomCoordinates[i][0] + 1);
+        for (int y = roomCoordinates[i][1] + 1; y <= roomCoordinates[i][3] - 1; y++){
+            for (int x = roomCoordinates[i][0] + 1; x <= roomCoordinates[i][2] - 1; x++){
                 if (y == roomCoordinates[i][1] + 1 && x == roomCoordinates[i][0] + 1){
                     castleMap[y][x].itemInTile = roomFilling[currentRoomType].mandatoryItem;
                     castleMap[y][x].funitureInTile = roomFilling[currentRoomType].mandatoryFurniture;
+                    printf("Type:%i\n", currentRoomType);
                 } else if (rand() % PUT_THING_IN_ROOM == 0 && thingsInRoom <= ITEM_CAP){
                     thingsInRoom++;
                     if (roomFilling[currentRoomType].possibleItems.size() > 0){
