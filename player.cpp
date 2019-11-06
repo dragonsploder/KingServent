@@ -57,7 +57,7 @@ void executeCommand(int command){
                     case 3: // move east
                         movePlayer(currentRoomFlags.doors[i][0], currentRoomFlags.doors[i][1] + 1);
                         break;
-                    case 4: // move sout
+                    case 4: // move south
                         movePlayer(currentRoomFlags.doors[i][0] + 1, currentRoomFlags.doors[i][1]);
                         break;
                     case 5: // move west
@@ -111,15 +111,22 @@ void executeCommand(int command){
         printString(miscResponses[11]);
     } else if (command == 12) { // drop an item
         int i;
-        for (i = 0; i < player.itemsInInventory.size(); i++){ // find the itms
+        for (i = 0; i < player.itemsInInventory.size(); i++){ // find the item
             if (gameFlags.input[1] == player.itemsInInventory[i].name){
                 break;
             }
         }
+        if (gameFlags.input[0] != "place" && player.itemsInInventory[i].integrity == 1) {
+            printString("The ", false);
+            printString(player.itemsInInventory[i].name, false);
+            printString(" falls and breaks.");
+            player.itemsInInventory.erase(player.itemsInInventory.begin()+i); // remove the item for player inventory
+            return;
+        }
         bool giveTileItem = false;
         // find an emtpy tile in current room to put it in
-        for (int y = currentRoomFlags.topLeftY; y < currentRoomFlags.width; y++){
-            for (int x = currentRoomFlags.topLeftX; x < currentRoomFlags.hight; x++){
+        for (int y = currentRoomFlags.topLeftY; y < currentRoomFlags.topLeftY + currentRoomFlags.hight; y++){
+            for (int x = currentRoomFlags.topLeftX; x < currentRoomFlags.topLeftX + currentRoomFlags.width; x++){
                 if (castleMap[y][x].itemInTile.name == "Empty"){
                     castleMap[y][x].itemInTile = player.itemsInInventory[i]; // put item in tile
                     giveTileItem = true;
@@ -130,8 +137,13 @@ void executeCommand(int command){
                 break;
             }
         }
+
         player.itemsInInventory.erase(player.itemsInInventory.begin()+i); // remove the item for player inventory
-        printString(miscResponses[12]);
+        if (gameFlags.input[0] != "place"){
+            printString(miscResponses[12]);
+        } else {
+            printString(miscResponses[15]);
+        }
     } else {
         printString(miscResponses[2]); // we messed up
     }

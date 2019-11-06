@@ -86,6 +86,7 @@ void updateRoomFlags(){
     currentRoomFlags.furnitureInRoom.clear();
     currentRoomFlags.itemsInRoom.clear();
     currentRoomFlags.doors.clear();
+    currentRoomFlags.itemLocations.clear();
 
     // Set these values to the player's location so they start in the room
     lowestX = player.X; 

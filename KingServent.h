@@ -51,8 +51,8 @@ struct People { // People have a:
 extern People emptyPerson;
 
 struct Tile { // Every tile of the castle has a:
-    std::string name;
-    std::string description;
+    //std::string name;
+    //std::string description;
     Furniture funitureInTile = emptyFurniture; // A tile can only have one piece of furniture
     People personInTile = emptyPerson; // A tile can only have one person
     Item itemInTile = emptyItem; // A tile can have one item

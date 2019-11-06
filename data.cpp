@@ -58,7 +58,8 @@ string miscResponses[] = {
     "Got item.", // 11
     "Dropped item.", // 12
     "You're carring to much to get this item.", // 13
-    "There is no room to drop this item." // 14
+    "There is no room to drop this item.", // 14
+    "Placed item." // 15
 };
 
 /**
@@ -90,7 +91,7 @@ const string commands[13][10] = {
     {"examane", "ex"},
     {"inventory", "i", "inv"},
     {"get", "grab", "take", "g"},
-    {"drop", "d"}
+    {"drop", "d", "place"}
 };
 
 // Unbreakable base item 
@@ -138,7 +139,7 @@ const ElementaryItem elementaryItems[] = {
 const Item items[] = {                                            
     {"Chicken Egg", "Layed by a chicken, this fragile, oval object will produce a chiken if left alone long enough.", {elementaryItems[0], elementaryItems[1]}, 1, 1}, // 0
     {"Candle", "A cylinder of wax which can be lit to produce light and sometimes scents.", {elementaryItems[5], elementaryItems[6]}, 2, 1}, // 1
-    {"Sheets", "Large rectangular piece of cloth.", {elementaryItems[8]}, 2, 2}, // 2
+    {"Sheet", "Large rectangular piece of cloth.", {elementaryItems[8]}, 2, 2}, // 2
     {"Fork", "A four pronged metal eating device. Hold the end without the prongs.", {elementaryItems[2]}, 3, 1}, // 3
     {"Butter knife", "A not so sharp knife which can be used to cut butter (duh).", {elementaryItems[2]}, 3, 1}, // 4
     {"Plate", "A dish to separate the food and the table", {elementaryItems[9]}, 1, 2}, // 5

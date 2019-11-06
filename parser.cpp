@@ -212,6 +212,9 @@ bool isValidInput(int input){
                     return true;
                 }
             }
+            printString("There is no ", false);
+            printString(userObjectName, false);
+            printString(" in your inventory.");
             return false;
         default:
             printString(miscResponses[2]); // somthing bad happend
