@@ -137,9 +137,92 @@ bool isValidInput(int input){
                     return true;
                 }
             }
+            for (int i = 0; i < player.elementaryItemsInInventory.size(); i++){
+                lowerCaseName = player.elementaryItemsInInventory[i].name;
+                for (int j = 0; j < lowerCaseName.size(); j++){
+                    lowerCaseName[j] = tolower(lowerCaseName[j]);
+                }
+                if (userObjectName == lowerCaseName){
+                    gameFlags.input[1] = player.elementaryItemsInInventory[i].name;
+                    return true;
+                }
+            }
             printString(miscResponses[7], false);
             printString(userObjectName, false);
             printString(miscResponses[8]);
+            return false;
+        case 11:
+            if (gameFlags.input[1] == "None") {
+                printString(miscResponses[9]);
+                return false;
+            }
+            userObjectName.append(gameFlags.input[1]);
+            if (gameFlags.input[2] != "None"){
+                userObjectName.append(" ");
+                userObjectName.append(gameFlags.input[2]);
+            }
+            if (gameFlags.input[3] != "None"){
+                userObjectName.append(" ");
+                userObjectName.append(gameFlags.input[3]);
+            }
+
+            for (int i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
+                lowerCaseName = currentRoomFlags.itemsInRoom[i].name;
+                for (int j = 0; j < lowerCaseName.size(); j++){
+                    lowerCaseName[j] = tolower(lowerCaseName[j]);
+                }
+                if (userObjectName == lowerCaseName){
+                    gameFlags.input[1] = currentRoomFlags.itemsInRoom[i].name;
+                    if (canGetItemOfSize(currentRoomFlags.itemsInRoom[i].size)){
+                        return true;
+                    } else {
+                        printString(miscResponses[13]);
+                        return false;
+                    }
+                }
+            }
+            for (int i = 0; i < currentRoomFlags.furnitureInRoom.size(); i++){
+                lowerCaseName = currentRoomFlags.furnitureInRoom[i].name;
+                for (int j = 0; j < lowerCaseName.size(); j++){
+                    lowerCaseName[j] = tolower(lowerCaseName[j]);
+                }
+                if (userObjectName == lowerCaseName){
+                    printString(miscResponses[10]);
+                    return false;
+                }
+            }
+            printString(miscResponses[7], false);
+            printString(userObjectName, false);
+            printString(miscResponses[8]);
+            return false;
+        case 12:
+            if (gameFlags.input[1] == "None") {
+                printString(miscResponses[9]);
+                return false;
+            }
+            userObjectName.append(gameFlags.input[1]);
+            if (gameFlags.input[2] != "None"){
+                userObjectName.append(" ");
+                userObjectName.append(gameFlags.input[2]);
+            }
+            if (gameFlags.input[3] != "None"){
+                userObjectName.append(" ");
+                userObjectName.append(gameFlags.input[3]);
+            }
+            for (int i = 0; i < player.itemsInInventory.size(); i++){
+                lowerCaseName = player.itemsInInventory[i].name;
+                for (int j = 0; j < lowerCaseName.size(); j++){
+                    lowerCaseName[j] = tolower(lowerCaseName[j]);
+                }
+                if (userObjectName == lowerCaseName){
+                    gameFlags.input[1] = player.itemsInInventory[i].name;
+                    if (currentRoomFlags.itemsInRoom.size() >= (currentRoomFlags.width * currentRoomFlags.hight)) {
+                        printString(miscResponses[14]);
+                        return false;
+                    }
+                    return true;
+                }
+            }
             return false;
         default:
             printString(miscResponses[2]);

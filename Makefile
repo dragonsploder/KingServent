@@ -13,4 +13,4 @@ KingServent:
 .PHONY: KingServent
 
 countLines: 
-	find . -name '*.cpp' | xargs wc -l | sort
+	find . \( -name "*.cpp" -o -name "*.h" \) | xargs wc -l | sort

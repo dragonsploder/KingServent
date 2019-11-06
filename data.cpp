@@ -51,7 +51,13 @@ string miscResponses[] = {
     "Ok", // 5
     "Examane what?", // 6
     "There is no ", // 7
-    " here." // 8
+    " here.", // 8
+    "Get what?", // 9
+    "You can't get furniture.", // 10
+    "Got item.", // 11
+    "Dropped item.", // 12
+    "You're carring to much to get this item.", // 13
+    "There is no room to drop this item." // 14
 };
 
 /**
@@ -86,7 +92,7 @@ const string commands[13][10] = {
     {"drop", "d"}
 };
 
-// Unbreackable base item 
+// Unbreakable base item 
 // Name: string
 // Description: string
 // Liquid: bool
@@ -121,13 +127,13 @@ const ElementaryItem elementaryItems[] = {
 //      3: Tool -> break
 //      4: Magic -> break
 //      5: Unbreakable 
-// Size: int
-//      0: No size (N/a)
-//      1: Palm size (30)
-//      2: Arm size (15)
-//      3: Torse size (5)
-//      4: Body (1)
-//      5: Bigger (0)
+// Size: int (total inv = 100)
+//      0: No size (0)
+//      1: Palm size (3)
+//      2: Arm size (12)
+//      3: Torse size (20)
+//      4: Body (60)
+//      5: Bigger (150)
 const Item items[] = {                                            
     {"Chicken Egg", "Layed by a chicken, this fragile, oval object will produce a chiken if left alone long enough.", {elementaryItems[0], elementaryItems[1]}, 1, 1}, // 0
     {"Candle", "A cylinder of wax which can be lit to produce light and sometimes scents.", {elementaryItems[5], elementaryItems[6]}, 2, 1}, // 1
@@ -146,6 +152,8 @@ const Item items[] = {
     {"Shirt", "A garment for the upper body.", {elementaryItems[8]}, 2, 2}, // 14
     {"Hardtack", "Hard, dry biscuit. Yum.", {elementaryItems[7], elementaryItems[16], elementaryItems[17]}, 4, 1}, // 15
 };
+
+const int sizeOfItem[] = {0, 3, 12, 20, 60, 150};
 
 // std::string name;
 // std::string description;

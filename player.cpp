@@ -11,6 +11,17 @@ void movePlayer(int Y, int X){
     castleMap[player.Y][player.X].isCurrentPlayerLocation = true;
 }
 
+bool canGetItemOfSize(int size){
+    int amount = sizeOfItem[size];
+    for (int i = 0; i < player.itemsInInventory.size(); i++){
+        amount += sizeOfItem[player.itemsInInventory[i].size];
+    }
+    if (amount < MAX_INV_SIZE){
+        return true;
+    }
+    return false;
+}
+
 /**
  * Input commands are all connected to a number:
  * 0: Reserved
@@ -81,8 +92,45 @@ void executeCommand(int command){
                 printString(player.itemsInInventory[i].description);
             }
         }
+        for (int i = 0; i < player.elementaryItemsInInventory.size(); i++){
+            if (gameFlags.input[1] == player.elementaryItemsInInventory[i].name){
+                printString(player.elementaryItemsInInventory[i].description);
+            }
+        }
     } else if (command == 10){
         gameFlags.printInventory = true;
+    } else if (command == 11) {
+        int i;
+        for (i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
+            if (gameFlags.input[1] == currentRoomFlags.itemsInRoom[i].name){
+                break;
+            }
+        }
+        player.itemsInInventory.push_back(currentRoomFlags.itemsInRoom[i]);
+        castleMap[currentRoomFlags.itemLocations[i].Y][currentRoomFlags.itemLocations[i].X].itemInTile = emptyItem;
+        printString(miscResponses[11]);
+    } else if (command == 12) {
+        int i;
+        for (i = 0; i < player.itemsInInventory.size(); i++){
+            if (gameFlags.input[1] == player.itemsInInventory[i].name){
+                break;
+            }
+        }
+        bool giveTileItem = false;
+        for (int y = currentRoomFlags.topLeftY; y < currentRoomFlags.width; y++){
+            for (int x = currentRoomFlags.topLeftX; x < currentRoomFlags.hight; x++){
+                if (castleMap[y][x].itemInTile.name == "Empty"){
+                    castleMap[y][x].itemInTile = player.itemsInInventory[i];
+                    giveTileItem = true;
+                }
+                break;
+            }
+            if (giveTileItem){
+                break;
+            }
+        }
+        player.itemsInInventory.erase(player.itemsInInventory.begin()+i);
+        printString(miscResponses[12]);
     } else {
         printString(miscResponses[2]);
     }

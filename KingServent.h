@@ -10,6 +10,7 @@
 #define ROOM_ITERATIONS 3 // Number of times the BSP system will split the rooms
 #define PUT_THING_IN_ROOM 15 // 1 out of n chance for every tile
 #define ITEM_CAP 7 // 1 out of n chance for every tile
+#define MAX_INV_SIZE 100
 
 struct ElementaryItem { // Unbreackable base item 
     std::string name;
@@ -78,6 +79,7 @@ struct GameFlags { // flags used to tell the game what to do
 struct RoomLocationFlags { // Information about a room
     std::vector<People> peopleInRoom; // Who is in this room
     std::vector<Item> itemsInRoom; // What items are in this room
+    std::vector<Tile> itemLocations; // The tile location of the items in the room
     std::vector<Furniture> furnitureInRoom; // What furniture is in this room
 
     std::vector<std::vector<int> > doors; // Were are the doorways
@@ -86,6 +88,8 @@ struct RoomLocationFlags { // Information about a room
 
     int hight; // Hight of the room
     int width; // Width of the room
+    int topLeftX;
+    int topLeftY;
     int roomType = 0; // What kind of room is this
 };
 
@@ -136,6 +140,7 @@ extern RoomType roomTypes[12]; // Differnt room types and their corresponding nu
 extern const RoomFilling roomFilling[12]; // What to put in those rooms
 
 extern const Item items[]; // The stuff
+extern const int sizeOfItem[]; // How much the stuff weighs
 // END data
 
 // room 
@@ -144,6 +149,7 @@ void updateRoomFlags(); // Update Room Flages for the room the player is current
 
 // player
 void executeCommand(int command); // Execute a command
+bool canGetItemOfSize(int size); // Can the player pick this up
 // END player
 
 // messages

@@ -23,6 +23,7 @@ void addRoomData(Tile tile){
     // Any items currently on the tile
     if (tile.itemInTile.name != "Empty"){
         currentRoomFlags.itemsInRoom.push_back(tile.itemInTile);
+        currentRoomFlags.itemLocations.push_back(tile);
     }
 
     // Checks the four tiles next to this tile for a door
@@ -97,4 +98,8 @@ void updateRoomFlags(){
 
     currentRoomFlags.hight = highestY - lowestY + 1; // Find hight of room
     currentRoomFlags.width = highestX - lowestX + 1; // Find width of room
+
+    
+    currentRoomFlags.topLeftX = lowestX;
+    currentRoomFlags.topLeftY = lowestY;
 }

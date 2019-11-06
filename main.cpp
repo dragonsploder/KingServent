@@ -18,8 +18,10 @@ People emptyPerson = {"Empty"};
 
 //Initilize starting Varibles
 void init(){
+
     player.itemsInInventory.push_back(items[15]);
     player.itemsInInventory.push_back(items[14]);
+
     genCastle(); //Generate the Castle with a BSP system
     updateRoomFlags();  // Floodfill the room the player is in and see whats in it
     gameFlags.printNewRoomMessage = true; // Tell printMessages() we're in a new room
@@ -38,7 +40,7 @@ void gameLoop(){
         } while(!isValidInput(currentCommand)); // Test is command can be exicuted
         executeCommand(currentCommand); // Execute the command
         updateRoomFlags();  // Floodfill the room the player is in and see whats in it
-        printMessages(); // They player did something, tell them what happend
+        printMessages(); // The player did something, tell them what happend
     }
 }
 

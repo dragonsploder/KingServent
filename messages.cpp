@@ -97,6 +97,23 @@ string genCurrentRoomThingList(bool showItems){
     return message;
 }
 
+string genInventoryMessage(){
+    string message;
+    
+    for (int i = 0; i < player.itemsInInventory.size(); i++){
+        message.append(player.itemsInInventory[i].name);
+        message.append("\n");
+    }
+    for (int i = 0; i < player.elementaryItemsInInventory.size(); i++){
+        message.append(player.elementaryItemsInInventory[i].name);
+        message.append("\n");
+    }
+    if (player.elementaryItemsInInventory.size() + player.itemsInInventory.size() == 0){
+        message = "There is nothing in your inventory.\n";
+    }
+    return message;
+}
+
 void printMessages(){
     if (gameFlags.printNewRoomMessage){
         printString(genPlayerEnterRoomMessage()); // Print out a message describing room
@@ -115,12 +132,7 @@ void printMessages(){
         gameFlags.printCurrentRoomFurniture = false;
     }
     if (gameFlags.printInventory){
-        for (int i = 0; i < player.itemsInInventory.size(); i++){
-            printString(player.itemsInInventory[i].name);
-        }
-        for (int i = 0; i < player.elementaryItemsInInventory.size(); i++){
-            printString(player.elementaryItemsInInventory[i].name);
-        }
+        printString(genInventoryMessage(), false);
         gameFlags.printInventory = false;
     }
 }
