@@ -100,6 +100,6 @@ void updateRoomFlags(){
     currentRoomFlags.width = highestX - lowestX + 1; // Find width of room
 
     
-    currentRoomFlags.topLeftX = lowestX;
-    currentRoomFlags.topLeftY = lowestY;
+    currentRoomFlags.topLeftX = lowestX; // Find top left corner
+    currentRoomFlags.topLeftY = lowestY; // Find top left corner
 }

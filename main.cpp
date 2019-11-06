@@ -37,7 +37,7 @@ void gameLoop(){
         }
         do {
             currentCommand = getInput(); // Get a command
-        } while(!isValidInput(currentCommand)); // Test is command can be exicuted
+        } while(!isValidInput(currentCommand)); // Test is command can be executed
         executeCommand(currentCommand); // Execute the command
         updateRoomFlags();  // Floodfill the room the player is in and see whats in it
         printMessages(); // The player did something, tell them what happend
@@ -46,12 +46,12 @@ void gameLoop(){
 
 int main(int argc, char *argv[]){
     for (int i = 0; i < argc; i++){
-        if (strcmp(argv[i], "-s") == 0){
+        if (strcmp(argv[i], "-s") == 0){ // set seed
             if (argc > i){
                 seed = atoi(argv[i + 1]);
             }
         }
-        if (strcmp(argv[i], "-p") == 0){
+        if (strcmp(argv[i], "-p") == 0){ // print out map every turn
             needPrintMap = true;
         }
     }

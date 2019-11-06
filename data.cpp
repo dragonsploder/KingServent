@@ -34,6 +34,7 @@ string doorMessages[] = {
     "and "
 };
 
+// Messages used for entry room description
 char roomDescriptionMessages[][50] = {
     ". ",
     "You enter the ",
@@ -153,6 +154,7 @@ const Item items[] = {
     {"Hardtack", "Hard, dry biscuit. Yum.", {elementaryItems[7], elementaryItems[16], elementaryItems[17]}, 4, 1}, // 15
 };
 
+// Each item size turns to a specific weight
 const int sizeOfItem[] = {0, 3, 12, 20, 60, 150};
 
 // std::string name;
@@ -180,9 +182,9 @@ const Furniture furniture[] = {
 };
 
 
-// manditoryItem
+// mandatoryItem
 // possibleItems
-// manditoryFurniture
+// mandatoryFurniture
 // possibleFurniture
 const RoomFilling roomFilling[12] = {
     {}, // Unused
@@ -201,8 +203,11 @@ const RoomFilling roomFilling[12] = {
 
 
 
-// Differnt room types and their corresponding numbers
+// Different room types and their corresponding numbers
 // 0 is the defalt
+// Name
+// description 
+// is mandatory
 RoomType roomTypes[12] = {
     {"Unused", "", false}, // 0
     {"King's bedroom", "An almost sacred room only to be tread in the most necessary of times.", true}, // 1

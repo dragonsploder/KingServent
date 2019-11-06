@@ -7,6 +7,46 @@
 
 using namespace std;
 
+// turn away of strings into format:
+/*
+ * 1 Book
+ * 2 Candles
+ * ect
+**/
+string compressMessage(vector<string> things){ 
+    string message; // end message
+    vector<string> messageArray; // array of non repeating strings
+    vector<int> wordOccurrence; // how many times a word occurs
+    bool exists; // Dose a word already exist
+    
+    for (int i = 0; i < things.size(); i++){ // for every word
+        exists = false;
+        for (int j = 0; j < messageArray.size(); j++){ // for every previous word
+            if (things[i] == messageArray[j]){ // is this a repeating word
+                wordOccurrence[j]++; // increas count for word
+                exists = true;
+                break;
+            }
+        }
+        if(!exists){ // If the word doesn't exists
+            messageArray.push_back(things[i]);
+            wordOccurrence.push_back(1);
+        }
+    }
+    for (int i = 0; i < messageArray.size(); i++){ // For every word
+        message.append(to_string(wordOccurrence[i])); // How many times the word appeared
+        message.append(" ");
+        message.append(messageArray[i]); // The word
+        if (wordOccurrence[i] != 1){ // If the word accours more then once
+            message.append("s");
+        }
+        if (i != messageArray.size() - 1){ // For every word except the last
+            message.append("\n");
+        }
+    }
+    return message;
+}
+
 // Generate a message for the prayer upon entering the room
 string genPlayerEnterRoomMessage(){
     string message; // string for compleat message
@@ -42,97 +82,72 @@ string genPlayerEnterRoomMessage(){
 }
 
 string genCurrentRoomDescription(){
-    return roomTypes[currentRoomFlags.roomType].description;
+    return roomTypes[currentRoomFlags.roomType].description; // figurer it out
 }
 
 string genCurrentRoomThingList(bool showItems){
-    vector<string> thingsInRoom;
-    string message;
-    vector<string> messageArray;
-    vector<int> wordOccurrence;
-    bool exists;
-    int i;
-    if (showItems){
-        for (i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
-            thingsInRoom.push_back(currentRoomFlags.itemsInRoom[i].name);
+    vector<string> thingsInRoom; // array so I can swap for items - furniture
+    string message; // end message
+    if (showItems){ // Is this for items
+        for (int i = 0; i < currentRoomFlags.itemsInRoom.size(); i++){
+            thingsInRoom.push_back(currentRoomFlags.itemsInRoom[i].name); // use items
         }
     } else {
-        for (i = 0; i < currentRoomFlags.furnitureInRoom.size(); i++){
-            thingsInRoom.push_back(currentRoomFlags.furnitureInRoom[i].name);
+        for (int i = 0; i < currentRoomFlags.furnitureInRoom.size(); i++){
+            thingsInRoom.push_back(currentRoomFlags.furnitureInRoom[i].name); // use furniture
         }
     }
-
-    for (i = 0; i < thingsInRoom.size(); i++){
-        exists = false;
-        for (int j = 0; j < messageArray.size(); j++){
-            if (thingsInRoom[i] == messageArray[j]){
-                wordOccurrence[j]++;
-                exists = true;
-                break;
-            }
-        }
-        if(!exists){
-            messageArray.push_back(thingsInRoom[i]);
-            wordOccurrence.push_back(1);
-        }
-    }
-    for (i = 0; i < messageArray.size(); i++){
-        message.append(to_string(wordOccurrence[i]));
-        message.append(" ");
-        message.append(messageArray[i]);
-        if (wordOccurrence[i] != 1){
-            message.append("s");
-        }
-        if (i != messageArray.size() - 1){
-            message.append("\n");
-        }
-    }
-    if (i == 0){
+    
+    if (thingsInRoom.size() == 0){ // If there is nothing 
         if (showItems){
             message = "There are no items in this room.";
         } else {
             message = "There is no furniture in this room.";
         }
+    } else {
+        message = compressMessage(thingsInRoom); // make the message look nice
     }
     return message;
 }
 
 string genInventoryMessage(){
-    string message;
+    string message; // end message
+    vector<string> thingsInInventory; // vector to combined items and elementary items
     
-    for (int i = 0; i < player.itemsInInventory.size(); i++){
-        message.append(player.itemsInInventory[i].name);
-        message.append("\n");
+    for (int i = 0; i < player.itemsInInventory.size(); i++){ // for every item in inventory
+        thingsInInventory.push_back(player.itemsInInventory[i].name);
     }
-    for (int i = 0; i < player.elementaryItemsInInventory.size(); i++){
-        message.append(player.elementaryItemsInInventory[i].name);
-        message.append("\n");
+    for (int i = 0; i < player.elementaryItemsInInventory.size(); i++){ // for every elementary item in inventory
+        thingsInInventory.push_back(player.elementaryItemsInInventory[i].name);
     }
-    if (player.elementaryItemsInInventory.size() + player.itemsInInventory.size() == 0){
+
+    if (player.elementaryItemsInInventory.size() + player.itemsInInventory.size() == 0){ // If the player doesn't have anything
         message = "There is nothing in your inventory.\n";
+    } else { // make it look nice
+        message = compressMessage(thingsInInventory);
     }
     return message;
 }
 
 void printMessages(){
     if (gameFlags.printNewRoomMessage){
-        printString(genPlayerEnterRoomMessage()); // Print out a message describing room
+        printString(genPlayerEnterRoomMessage()); // Print out a message giving specific room in game
         gameFlags.printNewRoomMessage = false;
     }
     if (gameFlags.printCurrentRoomDescription){
-        printString(genCurrentRoomDescription());
+        printString(genCurrentRoomDescription()); // Print out a message describing generic room
         gameFlags.printCurrentRoomDescription = false;
     }
     if (gameFlags.printCurrentRoomItems){
-        printString(genCurrentRoomThingList(true));
+        printString(genCurrentRoomThingList(true)); // Print out items in the room
         gameFlags.printCurrentRoomItems = false;
     }
     if (gameFlags.printCurrentRoomFurniture){
-        printString(genCurrentRoomThingList(false));
+        printString(genCurrentRoomThingList(false)); // Print out furniture in room
         gameFlags.printCurrentRoomFurniture = false;
     }
     if (gameFlags.printInventory){
-        printString(genInventoryMessage(), false);
+        printString(genInventoryMessage()); // Print out player inventory
         gameFlags.printInventory = false;
     }
 }

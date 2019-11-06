@@ -12,7 +12,7 @@
 #define ITEM_CAP 7 // 1 out of n chance for every tile
 #define MAX_INV_SIZE 100
 
-struct ElementaryItem { // Unbreackable base item 
+struct ElementaryItem { // Unbreakable base item 
     std::string name;
     std::string description;
     bool liquid;
@@ -93,7 +93,7 @@ struct RoomLocationFlags { // Information about a room
     int roomType = 0; // What kind of room is this
 };
 
-struct RoomType {
+struct RoomType { // The type of room a tile occupies
     std::string name;
     std::string description;
 
@@ -133,10 +133,10 @@ void printString(std::string message, bool endline = true); // Print a string to
 extern std::string tileType[]; // String array of tile types (e.g. door, wall, ect)
 extern std::string directions[]; // String array of directions n,e,s,w
 extern char roomDescriptionMessages[][50];
-extern std::string doorMessages[]; // String array of messages used to discribe doorways
+extern std::string doorMessages[]; // String array of messages used to describe doorways
 extern std::string miscResponses[]; // Strings that had no other home
 extern const std::string commands[13][10]; // String array of possible commands
-extern RoomType roomTypes[12]; // Differnt room types and their corresponding numbers
+extern RoomType roomTypes[12]; // Different room types and their corresponding numbers
 extern const RoomFilling roomFilling[12]; // What to put in those rooms
 
 extern const Item items[]; // The stuff
@@ -144,7 +144,7 @@ extern const int sizeOfItem[]; // How much the stuff weighs
 // END data
 
 // room 
-void updateRoomFlags(); // Update Room Flages for the room the player is currently in
+void updateRoomFlags(); // Update Room Flags for the room the player is currently in
 // END room
 
 // player
@@ -160,7 +160,7 @@ void printMessages(); // They player did something, tell them what happend
 
 // parser
 int getInput(); // Get input from the player
-bool isValidInput(int input); // Cheak if player can perform an command
+bool isValidInput(int input); // Check if player can perform an command
 // END parser
 
 

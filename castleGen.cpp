@@ -13,7 +13,7 @@ using namespace std;
 vector< vector<Tile> > castleMap(CASTLE_HIGHT, vector<Tile>(CASTLE_WIDTH)); // Actual castle map, full of Tiles
 vector<vector<int> > basicMapMatrix(CASTLE_HIGHT, vector<int>(CASTLE_WIDTH,0)); // Map used by BSP system for generating castle map
 
-vector<vector<int> > roomCoordinates; // List of rooms (used in differnt functions so global)
+vector<vector<int> > roomCoordinates; // List of rooms (used in different functions so global)
 
 // Function used to print castleMap to screen
 void printMap(){
@@ -71,7 +71,7 @@ void binarySpacePartitioning(vector<vector<int> > &mapMatrix, int iterations, bo
             int roomWidth = (roomCoordinates[room][2] - roomCoordinates[room][0]);
             int roomHight = (roomCoordinates[room][3] - roomCoordinates[room][1]);
 
-            int r = rand() % (roomHight + roomWidth); // Horizontal or vertical line, based on how much space there is (i.e. a long horizonl room is more likely to get a vertical lin)
+            int r = rand() % (roomHight + roomWidth); // Horizontal or vertical line, based on how much space there is (i.e. a long horizontal room is more likely to get a vertical lin)
 
             if (r <= roomHight){ // Horizontal split
                 if ((minWallDist + 1) * 2 < roomHight && roomHight >= 4){
@@ -188,22 +188,20 @@ void designateRooms(){
 
 void fillRoom(){
     for (int i = 0; i < roomCoordinates.size() - 1; i++){ // minus one from extra full castle room;
-        int thingsInRoom = 2;
+        int thingsInRoom = 2; // start at two for mandatory item / furniture
         int currentRoomType = castleMap[roomCoordinates[i][1] + 1][roomCoordinates[i][0] + 1].roomType;
-        printf("Y:%i  ", roomCoordinates[i][1] + 1);
-        printf("X:%i  ", roomCoordinates[i][0] + 1);
-        for (int y = roomCoordinates[i][1] + 1; y <= roomCoordinates[i][3] - 1; y++){
+        // for every tile in the room
+        for (int y = roomCoordinates[i][1] + 1; y <= roomCoordinates[i][3] - 1; y++){ 
             for (int x = roomCoordinates[i][0] + 1; x <= roomCoordinates[i][2] - 1; x++){
-                if (y == roomCoordinates[i][1] + 1 && x == roomCoordinates[i][0] + 1){
+                if (y == roomCoordinates[i][1] + 1 && x == roomCoordinates[i][0] + 1){ // if first tile, add mandatory objects
                     castleMap[y][x].itemInTile = roomFilling[currentRoomType].mandatoryItem;
                     castleMap[y][x].funitureInTile = roomFilling[currentRoomType].mandatoryFurniture;
-                    printf("Type:%i\n", currentRoomType);
-                } else if (rand() % PUT_THING_IN_ROOM == 0 && thingsInRoom <= ITEM_CAP){
+                } else if (rand() % PUT_THING_IN_ROOM == 0 && thingsInRoom <= ITEM_CAP){ // randome chance to place random item if less then ITEM_CAP
                     thingsInRoom++;
                     if (roomFilling[currentRoomType].possibleItems.size() > 0){
                         castleMap[y][x].itemInTile = roomFilling[currentRoomType].possibleItems[(rand() % roomFilling[currentRoomType].possibleItems.size())];
                     }
-                } else if (rand() % PUT_THING_IN_ROOM == 0 && thingsInRoom <= ITEM_CAP){
+                } else if (rand() % PUT_THING_IN_ROOM == 0 && thingsInRoom <= ITEM_CAP){ // randome chance to place furniture item if less then ITEM_CAP
                     thingsInRoom++;
                     if (roomFilling[currentRoomType].possibleFurniture.size() > 0){
                         castleMap[y][x].funitureInTile = roomFilling[currentRoomType].possibleFurniture[(rand() % roomFilling[currentRoomType].possibleFurniture.size())];
@@ -233,13 +231,13 @@ void genCastle(){
         printf("Seed:%i\n", time(NULL)); // Testing 
     } else {
         srand(seed); // Set rand seed
-        printf("Seed:%i\n", seed); // Testing   
+        printf("Seed set to:%i\n", seed); // Testing   
     }
     binarySpacePartitioning(basicMapMatrix, ROOM_ITERATIONS, true, 2); // Generate rooms
     copyMatrix(basicMapMatrix, castleMap); // Copy basicMapMatrix onto castleMap
     vector<vector<int> >().swap(basicMapMatrix); // Hack to release basicMapMatrix
     designateRooms(); // Turn ordinary rooms into cool rooms
-    placePlayer();
-    fillRoom();
-    setTileLocations(castleMap); 
+    placePlayer(); // Put the player in the servents corrder
+    fillRoom(); // put items / furniture in the room
+    setTileLocations(castleMap); // tell each tile were it is
 }
