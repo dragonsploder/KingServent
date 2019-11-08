@@ -153,6 +153,12 @@ const Item items[] = {
     {"Fancy painting", "Like a painting, but worth more.", {elementaryItems[14], elementaryItems[8], elementaryItems[3]}, 2, 3}, // 13
     {"Shirt", "A garment for the upper body.", {elementaryItems[8]}, 2, 2}, // 14
     {"Hardtack", "Hard, dry biscuit. Yum.", {elementaryItems[7], elementaryItems[16], elementaryItems[17]}, 4, 1}, // 15
+    {"Bread", "Like hardtack but better.", {elementaryItems[7], elementaryItems[16], elementaryItems[17]}, 4, 1}, // 16
+    {"Goblet", "A thing for holding liquids, like a cup but cooler.", {elementaryItems[2]}, 3, 1}, // 17
+    {"Spear", "A long pole with a sharp tip.", {elementaryItems[3], elementaryItems[2]}, 3, 2}, // 18
+    {"Trophy", "A decoritave object given for an achievement.", {elementaryItems[2]}, 3, 2}, // 19
+    {"Mace", "A heavy metal club with spikes.", {elementaryItems[3], elementaryItems[2]}, 3, 2}, // 20
+    {"Chainmail amour", "Body armour made of many tiny rings.", {elementaryItems[2]}, 3, 4}, // 21
 };
 
 // Each item size turns to a specific weight
@@ -182,6 +188,11 @@ const Furniture furniture[] = {
     {"Piano", "A large percussion instrument were tiny hammers hit strings of different length.", 0} // 11
 };
 
+/*
+const Item weapons[] = {
+    items[18], 
+    items[20]
+};*/
 
 // mandatoryItem
 // possibleItems
@@ -189,7 +200,7 @@ const Furniture furniture[] = {
 // possibleFurniture
 const RoomFilling roomFilling[12] = {
     {}, // Unused
-    {emptyItem, {items[1], items[11]}, furniture[2], {furniture[5]}}, // King's bedroom
+    {items[19], {items[1], items[11]}, furniture[2], {furniture[5]}}, // King's bedroom
     {items[12], {items[0]}, furniture[8], {furniture[4]}}, // kitchen
     {items[2], {items[1]}, furniture[3]}, // storeroom
     {items[5], {items[3], items[4]}, furniture[4], {furniture[5]}}, // dinning room
@@ -197,7 +208,7 @@ const RoomFilling roomFilling[12] = {
     {items[6], {}, furniture[6], {furniture[7]}}, // game room
     {items[7], {}, furniture[11]}, // music room
     {items[8], {}, furniture[9]}, // library
-    {items[9], {}, furniture[10]}, // armory
+    {items[9], {items[18], items[20]}, furniture[10]}, // armory
     {items[10], {items[11]}, furniture[14]}, // treasure room
     {items[11], {}, furniture[7]} // hall
 };
